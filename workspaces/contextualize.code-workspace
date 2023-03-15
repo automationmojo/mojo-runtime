@@ -1,0 +1,24 @@
+{
+    "folders": [
+        {
+            "path": "../"
+        }
+    ],
+    "settings": {
+        "python.defaultInterpreterPath": "/home/myron/repos/contextualize/.venv/bin/python3.10",
+        "python.envFile": "/home/myron/repos/contextualize/.cache/development.env",
+        "terminal.integrated.env.linux": {
+            "PYTHONPATH": "/home/myron/repos/contextualize/source/packages"
+        },
+        "terminal.integrated.profiles.linux": {
+            "virtual-env": {
+                "path": "/home/myron/repos/contextualize/.venv/bin/activate"
+            }
+        },
+        "python.analysis.extraPaths": [
+            "/home/myron/repos/contextualize/.venv/lib/python3.10/site-packages",
+            "/home/myron/repos/contextualize/source/packages"
+        ],
+        "python.terminal.activateEnvInCurrentTerminal": true
+    }
+}

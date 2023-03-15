@@ -1,2 +1,2 @@
-# python-package-template
-This is a template repository that can be used to quickly create a python package project.
+# Contextualize
+A package used to create a global context that allows for the distribution of options and configuration.

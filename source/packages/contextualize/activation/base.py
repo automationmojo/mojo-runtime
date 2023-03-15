@@ -1,0 +1,205 @@
+"""
+.. module:: activate
+    :platform: Darwin, Linux, Unix, Windows
+    :synopsis: Module that is utilized by test files to ensure the test environment is initialized in
+               the correct order.
+
+.. moduleauthor:: Myron Walker <myron.walker@gmail.com>
+"""
+
+__author__ = "Myron Walker"
+__copyright__ = "Copyright 2023, Myron W Walker"
+__credits__ = []
+__version__ = "1.0.0"
+__maintainer__ = "Myron Walker"
+__email__ = "myron.walker@gmail.com"
+__status__ = "Development" # Prototype, Development or Production
+__license__ = "MIT"
+
+import os
+import sys
+
+from exceptionator import TRACEBACK_CONFIG, VALID_MEMBER_TRACE_POLICY
+
+from contextualize.exceptions import ConfigurationError, SemanticError
+from contextualize.initialize import CONTEXTUALIZE_OVERRIDES
+
+# Perform a sematic check to see who is importing the akit.activation.base module.  We
+# need to make sure that the user is following the proper semantics and importing an activation
+# profile and not directly importing this module.  This will enforce the setting of the
+# activation profile in the global variables and enforce a proper environment activation
+# sequence is followed.
+importer_frame = sys._getframe()
+while True:
+    importer_frame = importer_frame.f_back
+    if importer_frame.f_code.co_filename.find("importlib") < 0:
+        break
+if "__activation_profile__" not in importer_frame.f_locals:
+    errmsg = "The 'contextualize.activation.base' should not be directly imported." \
+             "  The environment activation should always happen by importing" \
+             " an activation profile module."
+    raise SemanticError(errmsg)
+
+# Perform a semantic check to make sure that the `contextualize.overrides` module has been loaded
+# before this module has been imported and that it was properly initiaized.  This is crucial so
+# we have the correct context name and a logger name.
+if "contextualize.initialize" not in sys.modules:
+    errmsg = "The 'contextualize.activation.base' should not be imported unless the " \
+             "`initialize_contextual` module has been called to set the global name " \
+             "of the application context."
+    raise SemanticError(errmsg)
+elif CONTEXTUALIZE_OVERRIDES.CONTEXT_NAME is None:
+    errmsg = "The `initialize_contextualize` method must be called to set the context" \
+             "name and logger name before attempting to activate the runtime."
+    raise SemanticError(errmsg)
+
+# =======================================================================================
+# The way we start up the test framework and the order which things come up in is a very
+# important part of the automation process.  It effects whether or not logging is brought
+# up consistently before all modules start using it.  It ensures that no matter how we
+# enter into an automation process, whether via a test runner, terminal, or debugging a single
+# file that we properly parse arguments and settings and launch the automation process
+# consistently.
+#
+# Because of these necessities, we setup the activate module so it is the first thing
+# scripts and tests files that consume the test framework will import to ensure the
+# startup process is always consistent
+#
+# The framework has a special activation module :module:`akit.environment.console` that is
+# used when bringing up the test framework in a console.  This special method redirects
+
+# Activation Step - 1: Force the CONFIGURATION_MAP global variable into existance to set
+# its reference
+from contextualize.configuration import CONFIGURATION_MAP
+
+# Activation Step - 2: Force the global shared context to load, we want this to happen as early
+# as possible because we don't want to every replace its reference or invalidate
+# any references to it that someone might have acquired.
+from contextualize.context import Context # pylint: disable=wrong-import-position
+
+ctx = Context()
+
+# Activation Step - 3: Process the environment variable overrides for any of the AKIT configuration
+# variables. This needs to happen before we load or create an initial user configuration
+# because the variables may effect the values we write into the user configuration file.
+from contextualize.variables import (
+    CONTEXTUALIZE_VARIABLES,
+    JobType
+)
+
+from contextualize.xlogging.levels import LOG_LEVEL_NAMES
+
+# Activation Step - 4: Load the user and runtime configuration and add it to the CONFIGURATION_MAP
+# 'ChainMap' so the runtime settings can take precedence over the user default settings. 
+from contextualize.configuration import load_user_configuration
+
+
+DEFAULT_PATH_EXPANSIONS = [
+    os.path.expanduser,
+    os.path.expandvars,
+    os.path.abspath
+]
+def expand_path(path_in, expansions=DEFAULT_PATH_EXPANSIONS):
+
+    path_out = path_in
+    for expansion_func in expansions:
+        path_out = expansion_func(path_out)
+
+    return path_out
+
+
+# The runtime configuration should be first so it
+# has the highest priority.
+runtime_config = load_user_configuration()
+
+# We set all the variables for config file options from the environment
+# we just loaded, these might get overridden late but that is ok
+configuration = ctx.lookup("/configuration", default={})
+
+if "diagnostics" not in configuration:
+    configuration["diagnostics"] = {}
+
+if TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE is not None:
+    if TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE not in VALID_MEMBER_TRACE_POLICY:
+        configuration["diagnostics"]["traceback-policy-override"] = TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE
+    else:
+        errmsg = "Invalid traceback policy environment value. TRACEBACK_POLICY_OVERRIDE={}".format(
+            TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE
+        )
+        raise ConfigurationError(errmsg)
+
+# If a traceback policy override was set, apply it in the TRACEBACK_CONFIG in the contextualize.exceptions module
+if "traceback-policy-override" in configuration["diagnostics"]:
+    TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE = configuration["diagnostics"]["traceback-policy-override"]
+
+
+# Activation Step - 5: After 
+if CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_CONSOLE is not None and CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_CONSOLE in LOG_LEVEL_NAMES:
+    console_level = CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_CONSOLE
+else:
+    console_level = "INFO"
+    CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_CONSOLE = console_level
+
+if CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_FILE is not None and CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_FILE in LOG_LEVEL_NAMES:
+    logfile_level = CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_FILE
+else:
+    logfile_level = "DEBUG"
+    CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_FILE = logfile_level
+
+ctx.insert("/configuration/logging/levels/console", console_level)
+ctx.insert("/configuration/logging/levels/logfile", logfile_level)
+
+jobtype = ctx.lookup("/environment/job/type", default=CONTEXTUALIZE_VARIABLES.CONTEXT_JOB_TYPE)
+
+fill_dict = {
+    "starttime": str(CONTEXTUALIZE_VARIABLES.CONTEXT_STARTTIME).replace(" ", "T")
+}
+
+# We want to pull the console and testresults value from the configuration, because if its not there it
+# will be set from the default_dir_template variable
+env = ctx.lookup("/environment")
+
+outdir_full = None
+# Figure out which output directory to set as the current process output directory.  The output directory
+# determines where logging will go and is different depending on the activation mode of the test framework
+if CONTEXTUALIZE_VARIABLES.CONTEXT_OUTPUT_DIRECTORY is not None:
+    outdir_full = expand_path(CONTEXTUALIZE_VARIABLES.CONTEXT_OUTPUT_DIRECTORY % fill_dict)
+    env["output_directory"] = outdir_full
+else:
+    if jobtype == JobType.Console:
+        default_dir_template = os.path.join(CONTEXTUALIZE_VARIABLES.CONTEXT_HOME_DIRECTORY, "results", "console", "%(starttime)s")
+        outdir_template = configuration.lookup("/path-templates/console-results", default=default_dir_template)
+        filled_dir_results = outdir_template % fill_dict
+        outdir_full = expand_path(filled_dir_results)
+        configuration.insert("/paths/results/console", outdir_full)
+        
+        env["output_directory"] = outdir_full
+    elif jobtype == JobType.Orchestration:
+        default_dir_template = os.path.join(CONTEXTUALIZE_VARIABLES.CONTEXT_HOME_DIRECTORY, "results", "orchestration", "%(starttime)s")
+        outdir_template = configuration.lookup("/path-templates/orchestration-results", default=default_dir_template)
+        filled_dir_results = outdir_template % fill_dict
+        outdir_full = expand_path(filled_dir_results)
+        configuration.insert("/paths/results/orchestration", outdir_full)
+
+        env["output_directory"] = outdir_full
+    elif jobtype == JobType.Service:
+        default_dir_template = os.path.join(CONTEXTUALIZE_VARIABLES.CONTEXT_HOME_DIRECTORY, "results", "service", "%(starttime)s")
+        outdir_template = configuration.lookup("/path-templates/service-logs", default=default_dir_template)
+        filled_dir_results = outdir_template % fill_dict
+        configuration.insert("/paths/results/service", filled_dir_results)
+
+        env["output_directory"] = outdir_full
+    else:
+        default_dir_template = os.path.join(CONTEXTUALIZE_VARIABLES.CONTEXT_HOME_DIRECTORY, "results", "testresults", "%(starttime)s")
+        outdir_template = configuration.lookup("/path-templates/test-results", default=default_dir_template)
+        filled_dir_results = outdir_template % fill_dict
+        outdir_full = expand_path(filled_dir_results)
+        configuration.insert("/paths/testresults", outdir_full)
+
+        env["output_directory"] = outdir_full
+
+
+
+# Activation Step - 7: Import the logging module so we can be the trigger the logging configuration
+# for standard out
+import contextualize.xlogging.foundations # pylint: disable=unused-import,wrong-import-position
