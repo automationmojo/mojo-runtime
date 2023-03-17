@@ -111,20 +111,20 @@ class MOJO_RUNTIME_VARIABLES:
     MJR_USER_CONFIG_NAME = "user-runtime"
     MJR_USER_CONFIG_FILENAME = os.path.join(MJR_USER_CONFIG_DIRECTORY, "{}.yaml".format(MJR_USER_CONFIG_NAME))
 
-def normalize_config_names(names: str):
+def normalize_name_list(names: str, sep: str=","):
     norm_names: List[str] = []
 
-    cand_names: List[str] = os.path.split(names, ",")
+    cand_names: List[str] = os.path.split(names, sep)
     for nxt_name in cand_names:
         nname = nxt_name.strip()
         norm_names.append(nname)
     
     return norm_names
 
-def normalize_search_paths(paths: str):
+def normalize_path_list(paths: str, sep: str=";"):
     norm_paths: List[str] = []
 
-    search_paths: List[str] = os.path.split(paths, ";")
+    search_paths: List[str] = os.path.split(paths, sep)
     for nxt_path in search_paths:
         nxt_full_path = os.path.abspath(os.path.expandvars(os.path.expanduser(nxt_path.strip())))
         norm_paths.append(nxt_full_path)
@@ -151,7 +151,7 @@ def resolve_config_files(config_type: str, config_names: List[str], search_path:
 
     if len(missing_files) > 0:
         errmsg_lines = [
-            "Error loading {} configuration files.".format(config_type),
+            f"Error loading {config_type} configuration files.",
             "FILENAMES:"
         ]
 
@@ -168,7 +168,7 @@ def resolve_config_files(config_type: str, config_names: List[str], search_path:
     return config_files
 
 
-def resolve_contextualize_variables():
+def resolve_runtime_variables():
 
     environ = os.environ
 
@@ -195,42 +195,42 @@ def resolve_contextualize_variables():
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_NAMES = ["default-credentials"]
     if MojoRuntimeAlias.MJR_CONFIG_CREDENTIAL_NAMES in environ:
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_NAMES = normalize_config_names(
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_NAMES = normalize_name_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_CREDENTIAL_NAMES])
     
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS = [os.path.join(MOJO_RUNTIME_VARIABLES.MJR_CONFIG_DIRECTORY)]
     if MojoRuntimeAlias.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS in environ:
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS = normalize_search_paths(
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS = normalize_path_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS])
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES = ["default-landscape"]
     if MojoRuntimeAlias.MJR_CONFIG_LANDSCAPE_NAMES in environ:
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES = normalize_config_names(
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES = normalize_name_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_LANDSCAPE_NAMES])
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS = [os.path.join(MOJO_RUNTIME_VARIABLES.MJR_CONFIG_DIRECTORY)]
     if MojoRuntimeAlias.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS in environ:
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS = normalize_search_paths(
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS = normalize_path_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS])
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_NAMES = ["default-runtime"]
     if MojoRuntimeAlias.MJR_CONFIG_RUNTIME_NAMES in environ:
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_NAMES = normalize_config_names(
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_NAMES = normalize_name_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_RUNTIME_NAMES])
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_SEARCH_PATHS = [os.path.join(MOJO_RUNTIME_VARIABLES.MJR_CONFIG_DIRECTORY)]
     if MojoRuntimeAlias.MJR_CONFIG_RUNTIME_SEARCH_PATHS in environ:
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_SEARCH_PATHS = normalize_search_paths(
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_SEARCH_PATHS = normalize_path_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_RUNTIME_SEARCH_PATHS])
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_NAMES = ["default-topology"]
     if MojoRuntimeAlias.MJR_CONFIG_TOPOLOGY_NAMES in environ:
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_NAMES = normalize_config_names(
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_NAMES = normalize_name_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_TOPOLOGY_NAMES])
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS = [os.path.join(MOJO_RUNTIME_VARIABLES.MJR_CONFIG_DIRECTORY)]
     if MojoRuntimeAlias.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS in environ:
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS = normalize_search_paths(
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS = normalize_path_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS])
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = []

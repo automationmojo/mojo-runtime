@@ -5,9 +5,9 @@ class TestStartupService(unittest.TestCase):
 
     def test_startup_service(self):
 
-        from mojo.runtime.initialize import initialize_contextualize
+        from mojo.runtime.initialize import initialize_runtime
 
-        initialize_contextualize(name="ctx", logger_name="CTX", service_name="SomeService")
+        initialize_runtime(name="ctx", logger_name="CTX", service_name="SomeService")
 
         from mojo.runtime.activation import service
 

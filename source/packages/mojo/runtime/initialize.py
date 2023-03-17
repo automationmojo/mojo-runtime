@@ -21,6 +21,7 @@ from typing import Optional, Type
 
 class MojoRuntimeAlias:
     MJR_ACTIVATION_PROFILE = "MJR_ACTIVATION_PROFILE"
+
     MJR_BUILD_BRANCH = "MJR_BUILD_BRANCH"
     MJR_BUILD_FLAVOR = "MJR_BUILD_FLAVOR"
     MJR_BUILD_NAME = "MJR_BUILD_NAME"
@@ -43,10 +44,9 @@ class MojoRuntimeAlias:
     MJR_DEBUG_BREAKPOINTS = "MJR_DEBUG_BREAKPOINTS"
     MJR_DEBUG_DEBUGGER = "MJR_DEBUG_DEBUGGER"
     
-    MJR_LOG_LEVEL_CONSOLE = "MJR_LOG_LEVEL_CONSOLE"
-    MJR_LOG_LEVEL_FILE = "MJR_LOG_LEVEL_FILE"
-    MJR_INTERACTIVE_CONSOLE = "MJR_INTERACTIVE_CONSOLE"
     MJR_HOME_DIRECTORY = "MJR_HOME_DIRECTORY"
+
+    MJR_INTERACTIVE_CONSOLE = "MJR_INTERACTIVE_CONSOLE"
 
     MJR_JOB_ID = "MJR_JOB_ID"
     MJR_JOB_INITIATOR = "MJR_JOB_INITIATOR"
@@ -55,8 +55,12 @@ class MojoRuntimeAlias:
     MJR_JOB_OWNER = "MJR_JOB_OWNER"
     MJR_JOB_TYPE = "MJR_JOB_TYPE"
 
+    MJR_LOG_LEVEL_CONSOLE = "MJR_LOG_LEVEL_CONSOLE"
+    MJR_LOG_LEVEL_FILE = "MJR_LOG_LEVEL_FILE"
     MJR_LOGGER_NAME = "MJR_LOGGER_NAME"
+    
     MJR_NAME = "MJR_NAME"
+
     MJR_OUTPUT_DIRECTORY = "MJR_OUTPUT_DIRECTORY"
     
     MJR_RESULTS_STATIC_SUMMARY_TEMPLATE = "MJR_RESULTS_STATIC_SUMMARY_TEMPLATE"
@@ -65,6 +69,7 @@ class MojoRuntimeAlias:
     
     MJR_SERVICE_NAME = "MJR_SERVICE_NAME"
     MJR_STARTTIME = "MJR_STARTTIME"
+
     MJR_USER_CONFIG_DIRECTORY = "MJR_USER_CONFIG_DIRECTORY"
     MJR_USER_CONFIG_NAME = "MJR_USER_CONFIG_NAME"
     MJR_USER_CONFIG_FILENAME = "MJR_USER_CONFIG_FILENAME"
@@ -73,6 +78,7 @@ class MojoRuntimeAlias:
 class MOJO_RUNTIME_OVERRIDES:
 
     MJR_NAME = None
+
     MJR_LOGGER_NAME = None
     MJR_SERVICE_NAME = None
 
@@ -93,7 +99,7 @@ class MOJO_RUNTIME_OVERRIDES:
     }
 
 
-def initialize_contextualize(*, name: str, logger_name: str, use_credential: Optional[bool]=None,
+def initialize_runtime(*, name: str, logger_name: str, use_credential: Optional[bool]=None,
         use_landscape: Optional[bool]=None, use_runtime: Optional[bool]=None, use_topology: Optional[bool]=False,
         service_name: Optional[str]=None, aliases: Type[MojoRuntimeAlias]=MojoRuntimeAlias,
         default_configuration: dict=MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION):
