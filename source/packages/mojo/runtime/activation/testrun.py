@@ -18,22 +18,22 @@ __license__ = "MIT"
 
 import os
 
-from contextualize.variables import ActivationProfile, CONTEXTUALIZE_VARIABLES, JobType
-from contextualize.initialize import ContextAlias
+from mojo.runtime.variables import ActivationProfile, MOJO_RUNTIME_VARIABLES, JobType
+from mojo.runtime.initialize import MojoRuntimeAlias
 
 __activation_profile__ = ActivationProfile.TestRun
 
 # Guard against attemps to activate more than one, activation profile.
-if CONTEXTUALIZE_VARIABLES.CONTEXT_ACTIVATION_PROFILE is not None:
+if MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE is not None:
     errmsg = "An attempt was made to activate multiple environment activation profiles. profile={}".format(
-        CONTEXTUALIZE_VARIABLES.CONTEXT_ACTIVATION_PROFILE
+        MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE
     )
     raise RuntimeError(errmsg)
 
-CONTEXTUALIZE_VARIABLES.CONTEXT_ACTIVATION_PROFILE = ActivationProfile.TestRun
+MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE = ActivationProfile.TestRun
 
-CONTEXTUALIZE_VARIABLES.CONTEXT_JOB_TYPE = JobType.TestRun
+MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.TestRun
 
-os.environ[ContextAlias.CONTEXT_JOB_TYPE] = str(CONTEXTUALIZE_VARIABLES.CONTEXT_JOB_TYPE)
+os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = str(MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
 
-import contextualize.activation.base
+import mojo.runtime.activation.base

@@ -5,11 +5,11 @@ class TestStartupConsole(unittest.TestCase):
 
     def test_startup_console(self):
 
-        from contextualize.initialize import initialize_contextualize
+        from mojo.runtime.initialize import initialize_contextualize
 
         initialize_contextualize(name="ctx", logger_name="CTX")
 
-        from contextualize.activation import console
+        from mojo.runtime.activation import console
 
         return
 

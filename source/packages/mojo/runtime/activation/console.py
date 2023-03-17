@@ -22,26 +22,26 @@ import tempfile
 
 from logging.handlers import RotatingFileHandler
 
-from contextualize.exceptions import SemanticError
+from mojo.xmods.xexceptions import SemanticError
+from mojo.xmods.xlogging.levels import LogLevel
 
-from contextualize.initialize import ContextAlias
-from contextualize.variables import ActivationProfile, JobType, CONTEXTUALIZE_VARIABLES
-from contextualize.xlogging.levels import LogLevel
+from mojo.runtime.initialize import MojoRuntimeAlias
+from mojo.runtime.variables import ActivationProfile, JobType, MOJO_RUNTIME_VARIABLES
 
 __activation_profile__ = ActivationProfile.Console
 
 # Guard against attemps to activate more than one, activation profile.
-if CONTEXTUALIZE_VARIABLES.CONTEXT_ACTIVATION_PROFILE is not None:
+if MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE is not None:
     errmsg = "An attempt was made to activate multiple environment activation profiles. profile={}".format(
-        CONTEXTUALIZE_VARIABLES.CONTEXT_ACTIVATION_PROFILE
+        MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE
     )
     raise SemanticError(errmsg)
 
-CONTEXTUALIZE_VARIABLES.CONTEXT_ACTIVATION_PROFILE = ActivationProfile.Console
-CONTEXTUALIZE_VARIABLES.CONTEXT_JOB_TYPE = JobType.Console
-os.environ[ContextAlias.CONTEXT_JOB_TYPE] = JobType.Console
+MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE = ActivationProfile.Console
+MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.Console
+os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = JobType.Console
 
-if CONTEXTUALIZE_VARIABLES.CONTEXT_INTERACTIVE_CONSOLE:
+if MOJO_RUNTIME_VARIABLES.MJR_INTERACTIVE_CONSOLE:
     # If we are running in an interactive console, then we need to reduce the
     # console log level and we need to output log data to a console log file.
 
@@ -49,36 +49,36 @@ if CONTEXTUALIZE_VARIABLES.CONTEXT_INTERACTIVE_CONSOLE:
 
     # Only set the log levels if they were not previously set.  An option to a base
     # command may have set this in order to turn on a different level of verbosity
-    if CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_CONSOLE is None:
-        CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_CONSOLE = LogLevel.QUIET
+    if MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE is None:
+        MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE = LogLevel.QUIET
 
-    CONTEXTUALIZE_VARIABLES.CONTEXT_OUTPUT_DIRECTORY = temp_output_dir
+    MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = temp_output_dir
 
     # For console activation we don't want to log to the console and we want
     # to point the logs to a different output folder
-    os.environ[ContextAlias.CONTEXT_CONSOLE_LOG_LEVEL] = str(CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_CONSOLE)
-    os.environ[ContextAlias.CONTEXT_JOB_TYPE] = str(CONTEXTUALIZE_VARIABLES.CONTEXT_JOB_TYPE)
-    os.environ[ContextAlias.CONTEXT_OUTPUT_DIRECTORY] = str(CONTEXTUALIZE_VARIABLES.CONTEXT_OUTPUT_DIRECTORY)
+    os.environ[MojoRuntimeAlias.MJR_CONSOLE_LOG_LEVEL] = str(MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE)
+    os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = str(MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
+    os.environ[MojoRuntimeAlias.MJR_OUTPUT_DIRECTORY] = str(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY)
 
-    import contextualize.activation.base # pylint: disable=unused-import,wrong-import-position
+    import mojo.runtime.activation.base # pylint: disable=unused-import,wrong-import-position
 
-    from contextualize.xlogging.foundations import logging_initialize, LoggingDefaults # pylint: disable=wrong-import-position
+    from mojo.xmods.xlogging.foundations import logging_initialize, LoggingDefaults # pylint: disable=wrong-import-position
 
     LoggingDefaults.DefaultFileLoggingHandler = RotatingFileHandler
     logging_initialize()
 
     def showlog():
 
-        print("OUTPUT FOLDER: {}".format(CONTEXTUALIZE_VARIABLES.CONTEXT_OUTPUT_DIRECTORY))
+        print("OUTPUT FOLDER: {}".format(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY))
         print("")
 
         return
 
 else:
 
-    import contextualize.activation.base # pylint: disable=unused-import,wrong-import-position
+    import mojo.runtime.activation.base # pylint: disable=unused-import,wrong-import-position
 
-    from contextualize.xlogging.foundations import logging_initialize, LoggingDefaults # pylint: disable=wrong-import-position
+    from mojo.xmods.xlogging.foundations import logging_initialize, LoggingDefaults # pylint: disable=wrong-import-position
 
     LoggingDefaults.DefaultFileLoggingHandler = RotatingFileHandler
     logging_initialize()

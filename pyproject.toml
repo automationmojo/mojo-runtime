@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "contextualize"
-description = "A package used to create a global context that allows for the distribution of options and configuration."
+name = "mojo-runtime"
+description = "Automation Mojo Runtime Module (mojo-runtime)"
 version = "0.0.1"
 authors = []
 readme = "README.md"
@@ -18,8 +18,6 @@ packages = [{include = "source/packages"}]
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
 coverage = "^7.0.4"
-contextualwaiting = "^0.9.1"
-exceptionator = "^0.0.1"
 mojo-xmodules = "^0.0.5"
 
 [tool.poetry.group.dev.dependencies]

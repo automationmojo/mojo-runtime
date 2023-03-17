@@ -137,18 +137,6 @@ files = [
 ]
 
 [[package]]
-name = "contextualwaiting"
-version = "0.9.1"
-description = "Contextual Waiting"
-category = "main"
-optional = false
-python-versions = ">=3.8,<4.0"
-files = [
-    {file = "contextualwaiting-0.9.1-py3-none-any.whl", hash = "sha256:bdde27340ca60a305c15f173da95a1f40779575c02774e6cc9848d9c3ea5766f"},
-    {file = "contextualwaiting-0.9.1.tar.gz", hash = "sha256:06fac9da76bb0d97472af9fcd6e3c1eb7b9e5e6d2db163289ef488793ca0e3fc"},
-]
-
-[[package]]
 name = "coverage"
 version = "7.2.1"
 description = "Code coverage measurement for Python"
@@ -249,18 +237,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 files = [
     {file = "docutils-0.18.1-py2.py3-none-any.whl", hash = "sha256:23010f129180089fbcd3bc08cfefccb3b890b0050e1ca00c867036e9d161b98c"},
     {file = "docutils-0.18.1.tar.gz", hash = "sha256:679987caf361a7539d76e584cbeddc311e3aee937877c87346f31debc63e9d06"},
-]
-
-[[package]]
-name = "exceptionator"
-version = "0.0.1"
-description = "The Exceptionator Package"
-category = "main"
-optional = false
-python-versions = ">=3.8,<4.0"
-files = [
-    {file = "exceptionator-0.0.1-py3-none-any.whl", hash = "sha256:02fd39c61b150ced5b144e2451c43c59cb31ae96f8152fc9bb0800f3c5c26689"},
-    {file = "exceptionator-0.0.1.tar.gz", hash = "sha256:41ee5e5b344f91975f2b3166fe7b77f6dd9767f8e20745e45cdd8f74fd96339b"},
 ]
 
 [[package]]
@@ -892,4 +868,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "af78c080ebd079cbd9a8104f8d253c1966db2e8cbd4a55516dc1c331afa7347a"
+content-hash = "e423ebdb1908e81841423ba3430a8d165a11af3c2d65f06cae1919e215f81e09"

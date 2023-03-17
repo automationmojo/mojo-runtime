@@ -19,10 +19,14 @@ __license__ = "MIT"
 import os
 import sys
 
-from exceptionator import TRACEBACK_CONFIG, VALID_MEMBER_TRACE_POLICY
+from mojo.xmods.xexceptions import (
+    TRACEBACK_CONFIG,
+    VALID_MEMBER_TRACE_POLICY,
+    ConfigurationError,
+    SemanticError
+)
 
-from contextualize.exceptions import ConfigurationError, SemanticError
-from contextualize.initialize import CONTEXTUALIZE_OVERRIDES
+from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES
 
 # Perform a sematic check to see who is importing the akit.activation.base module.  We
 # need to make sure that the user is following the proper semantics and importing an activation
@@ -48,7 +52,7 @@ if "contextualize.initialize" not in sys.modules:
              "`initialize_contextual` module has been called to set the global name " \
              "of the application context."
     raise SemanticError(errmsg)
-elif CONTEXTUALIZE_OVERRIDES.CONTEXT_NAME is None:
+elif MOJO_RUNTIME_OVERRIDES.MJR_NAME is None:
     errmsg = "The `initialize_contextualize` method must be called to set the context" \
              "name and logger name before attempting to activate the runtime."
     raise SemanticError(errmsg)
@@ -70,28 +74,28 @@ elif CONTEXTUALIZE_OVERRIDES.CONTEXT_NAME is None:
 
 # Activation Step - 1: Force the CONFIGURATION_MAP global variable into existance to set
 # its reference
-from contextualize.configuration import CONFIGURATION_MAP
+from mojo.runtime.configuration import CONFIGURATION_MAP
 
 # Activation Step - 2: Force the global shared context to load, we want this to happen as early
 # as possible because we don't want to every replace its reference or invalidate
 # any references to it that someone might have acquired.
-from contextualize.context import Context # pylint: disable=wrong-import-position
+from mojo.runtime.context import Context # pylint: disable=wrong-import-position
 
 ctx = Context()
 
 # Activation Step - 3: Process the environment variable overrides for any of the AKIT configuration
 # variables. This needs to happen before we load or create an initial user configuration
 # because the variables may effect the values we write into the user configuration file.
-from contextualize.variables import (
-    CONTEXTUALIZE_VARIABLES,
+from mojo.runtime.variables import (
+    MOJO_RUNTIME_VARIABLES,
     JobType
 )
 
-from contextualize.xlogging.levels import LOG_LEVEL_NAMES
+from mojo.xmods.xlogging.levels import LOG_LEVEL_NAMES
 
 # Activation Step - 4: Load the user and runtime configuration and add it to the CONFIGURATION_MAP
 # 'ChainMap' so the runtime settings can take precedence over the user default settings. 
-from contextualize.configuration import load_user_configuration
+from mojo.runtime.configuration import load_user_configuration
 
 
 DEFAULT_PATH_EXPANSIONS = [
@@ -134,25 +138,25 @@ if "traceback-policy-override" in configuration["diagnostics"]:
 
 
 # Activation Step - 5: After 
-if CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_CONSOLE is not None and CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_CONSOLE in LOG_LEVEL_NAMES:
-    console_level = CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_CONSOLE
+if MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE is not None and MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE in LOG_LEVEL_NAMES:
+    console_level = MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE
 else:
     console_level = "INFO"
-    CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_CONSOLE = console_level
+    MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE = console_level
 
-if CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_FILE is not None and CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_FILE in LOG_LEVEL_NAMES:
-    logfile_level = CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_FILE
+if MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_FILE is not None and MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_FILE in LOG_LEVEL_NAMES:
+    logfile_level = MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_FILE
 else:
     logfile_level = "DEBUG"
-    CONTEXTUALIZE_VARIABLES.CONTEXT_LOG_LEVEL_FILE = logfile_level
+    MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_FILE = logfile_level
 
 ctx.insert("/configuration/logging/levels/console", console_level)
 ctx.insert("/configuration/logging/levels/logfile", logfile_level)
 
-jobtype = ctx.lookup("/environment/job/type", default=CONTEXTUALIZE_VARIABLES.CONTEXT_JOB_TYPE)
+jobtype = ctx.lookup("/environment/job/type", default=MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
 
 fill_dict = {
-    "starttime": str(CONTEXTUALIZE_VARIABLES.CONTEXT_STARTTIME).replace(" ", "T")
+    "starttime": str(MOJO_RUNTIME_VARIABLES.MJR_STARTTIME).replace(" ", "T")
 }
 
 # We want to pull the console and testresults value from the configuration, because if its not there it
@@ -162,12 +166,12 @@ env = ctx.lookup("/environment")
 outdir_full = None
 # Figure out which output directory to set as the current process output directory.  The output directory
 # determines where logging will go and is different depending on the activation mode of the test framework
-if CONTEXTUALIZE_VARIABLES.CONTEXT_OUTPUT_DIRECTORY is not None:
-    outdir_full = expand_path(CONTEXTUALIZE_VARIABLES.CONTEXT_OUTPUT_DIRECTORY % fill_dict)
+if MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY is not None:
+    outdir_full = expand_path(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY % fill_dict)
     env["output_directory"] = outdir_full
 else:
     if jobtype == JobType.Console:
-        default_dir_template = os.path.join(CONTEXTUALIZE_VARIABLES.CONTEXT_HOME_DIRECTORY, "results", "console", "%(starttime)s")
+        default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "console", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/console-results", default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         outdir_full = expand_path(filled_dir_results)
@@ -175,7 +179,7 @@ else:
         
         env["output_directory"] = outdir_full
     elif jobtype == JobType.Orchestration:
-        default_dir_template = os.path.join(CONTEXTUALIZE_VARIABLES.CONTEXT_HOME_DIRECTORY, "results", "orchestration", "%(starttime)s")
+        default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "orchestration", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/orchestration-results", default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         outdir_full = expand_path(filled_dir_results)
@@ -183,14 +187,14 @@ else:
 
         env["output_directory"] = outdir_full
     elif jobtype == JobType.Service:
-        default_dir_template = os.path.join(CONTEXTUALIZE_VARIABLES.CONTEXT_HOME_DIRECTORY, "results", "service", "%(starttime)s")
+        default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "service", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/service-logs", default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         configuration.insert("/paths/results/service", filled_dir_results)
 
         env["output_directory"] = outdir_full
     else:
-        default_dir_template = os.path.join(CONTEXTUALIZE_VARIABLES.CONTEXT_HOME_DIRECTORY, "results", "testresults", "%(starttime)s")
+        default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "testresults", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/test-results", default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         outdir_full = expand_path(filled_dir_results)
@@ -202,4 +206,4 @@ else:
 
 # Activation Step - 7: Import the logging module so we can be the trigger the logging configuration
 # for standard out
-import contextualize.xlogging.foundations # pylint: disable=unused-import,wrong-import-position
+from mojo.xmods.xlogging.foundations # pylint: disable=unused-import,wrong-import-position

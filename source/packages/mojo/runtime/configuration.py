@@ -23,12 +23,12 @@ import collections
 import os
 import yaml
 
-from contextualize.initialize import CONTEXTUALIZE_OVERRIDES
-from contextualize.variables import CONTEXTUALIZE_VARIABLES
+from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES
+from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 
 # The override configuration dictionary is added to the ChainMap first so it takes
 # precidence over all other dictionaries in the chain.
-CONFIGURATION_MAP = collections.ChainMap(CONTEXTUALIZE_OVERRIDES.DEFAULT_CONFIGURATION)
+CONFIGURATION_MAP = collections.ChainMap(MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION)
 
 
 def load_user_configuration(tryonly: bool=True) -> Dict[str, Any]:
@@ -37,7 +37,7 @@ def load_user_configuration(tryonly: bool=True) -> Dict[str, Any]:
     # variables that might modify our default configuration values, we want to delay
     # locking the values from the variables into a default configuration declaration until
     # this function is called.
-    user_configuration_file = os.path.expanduser(os.path.expandvars(os.path.abspath(CONTEXTUALIZE_VARIABLES.CONTEXT_USER_CONFIG_FILENAME)))
+    user_configuration_file = os.path.expanduser(os.path.expandvars(os.path.abspath(MOJO_RUNTIME_VARIABLES.MJR_USER_CONFIG_FILENAME)))
     if os.path.exists(user_configuration_file):
         overlay_configuration(user_configuration_file)
     elif not tryonly:
