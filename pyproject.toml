@@ -20,6 +20,7 @@ python = ">=3.8,<4.0"
 coverage = "^7.0.4"
 contextualwaiting = "^0.9.1"
 exceptionator = "^0.0.1"
+mojo-xmodules = "^0.0.5"
 
 [tool.poetry.group.dev.dependencies]
 myst-parser = "^0.18.1"
