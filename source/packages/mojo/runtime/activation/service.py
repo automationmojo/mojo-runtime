@@ -55,7 +55,7 @@ MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = "~/akit/services/{}".format(servic
 
 # For console activation we don't want to log to the console and we want
 # to point the logs to a different output folder
-os.environ[MojoRuntimeAlias.MJR_CONSOLE_LOG_LEVEL] = str(MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE)
+os.environ[MojoRuntimeAlias.MJR_LOG_LEVEL_CONSOLE] = str(MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE)
 os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = str(MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
 os.environ[MojoRuntimeAlias.MJR_OUTPUT_DIRECTORY] = str(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY)
 
