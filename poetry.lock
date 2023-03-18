@@ -432,14 +432,14 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.5"
+version = "0.0.6"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.5-py3-none-any.whl", hash = "sha256:827388e8d4498369b34883063093bf332d9b1e1b09035280a9d0cfa969a02aed"},
-    {file = "mojo_xmodules-0.0.5.tar.gz", hash = "sha256:0c1b46cfd80a91f0f6c2ce46c23604bb5dc770f96ecff52a29f61aaab817c064"},
+    {file = "mojo_xmodules-0.0.6-py3-none-any.whl", hash = "sha256:0a1a477998fb3d4a3b3f9a768799b244d19aa2b05462707e92e460c1df6c88ec"},
+    {file = "mojo_xmodules-0.0.6.tar.gz", hash = "sha256:5da5d0a01509ebc21222a8e4c39a9f5460a57644ca30b5032ed8e126f4a91e0d"},
 ]
 
 [package.dependencies]
@@ -868,4 +868,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "e423ebdb1908e81841423ba3430a8d165a11af3c2d65f06cae1919e215f81e09"
+content-hash = "2e82cc5cc31d470a44db3e2df95a7e3b3aab0024d331caaa3787d84e0f3449c4"
