@@ -72,6 +72,13 @@ class MOJO_RUNTIME_VARIABLES:
     
     MJR_ACTIVATION_PROFILE = None
     
+    MJR_AUTOMATION_POD = DefaultValue.NotSet
+
+    MJR_BUILD_BRANCH = DefaultValue.NotSet
+    MJR_BUILD_FLAVOR = DefaultValue.NotSet
+    MJR_BUILD_NAME = DefaultValue.NotSet
+    MJR_BUILD_URL = DefaultValue.NotSet
+
     MJR_CONFIG_DIRECTORY = None
     MJR_CONFIG_CREDENTIAL_NAMES = None
     MJR_CONFIG_CREDENTIAL_FILES = None
@@ -188,6 +195,26 @@ def resolve_runtime_variables():
     MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE = None
     if MojoRuntimeAlias.MJR_ACTIVATION_PROFILE in environ:
         MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE = environ[MojoRuntimeAlias.MJR_ACTIVATION_PROFILE]
+
+    MOJO_RUNTIME_VARIABLES.MJR_AUTOMATION_POD = DefaultValue.NotSet
+    if MojoRuntimeAlias.MJR_AUTOMATION_POD in environ:
+        MOJO_RUNTIME_VARIABLES.MJR_AUTOMATION_POD = environ[MojoRuntimeAlias.MJR_AUTOMATION_POD]
+
+    MOJO_RUNTIME_VARIABLES.MJR_BUILD_BRANCH = DefaultValue.NotSet
+    if MojoRuntimeAlias.MJR_BUILD_BRANCH in environ:
+        MOJO_RUNTIME_VARIABLES.MJR_BUILD_BRANCH = environ[MojoRuntimeAlias.MJR_BUILD_BRANCH]
+    
+    MOJO_RUNTIME_VARIABLES.MJR_BUILD_NAME = DefaultValue.NotSet
+    if MojoRuntimeAlias.MJR_BUILD_NAME in environ:
+        MOJO_RUNTIME_VARIABLES.MJR_BUILD_NAME = environ[MojoRuntimeAlias.MJR_BUILD_NAME]
+    
+    MOJO_RUNTIME_VARIABLES.MJR_BUILD_FLAVOR = DefaultValue.NotSet
+    if MojoRuntimeAlias.MJR_BUILD_FLAVOR in environ:
+        MOJO_RUNTIME_VARIABLES.MJR_BUILD_FLAVOR = environ[MojoRuntimeAlias.MJR_BUILD_FLAVOR]
+
+    MOJO_RUNTIME_VARIABLES.MJR_BUILD_URL = DefaultValue.NotSet
+    if MojoRuntimeAlias.MJR_BUILD_URL in environ:
+        MOJO_RUNTIME_VARIABLES.MJR_BUILD_URL = environ[MojoRuntimeAlias.MJR_BUILD_URL]
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_DIRECTORY = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "config")
     if MojoRuntimeAlias.MJR_CONFIG_DIRECTORY in environ:
