@@ -22,7 +22,7 @@ import tempfile
 from logging.handlers import RotatingFileHandler
 
 from mojo.xmods.xlogging.levels import LogLevel
-from mojo.xmods.xexceptions import ConfigurationError, SemanticError
+from mojo.xmods.exceptions import ConfigurationError, SemanticError
 
 from mojo.runtime.initialize import MojoRuntimeAlias
 from mojo.runtime.variables import ActivationProfile, JobType, MOJO_RUNTIME_VARIABLES

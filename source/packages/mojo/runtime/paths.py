@@ -127,52 +127,45 @@ def get_expanded_path(path: str) -> str:
     exp_path = os.path.abspath(os.path.expandvars(os.path.expanduser(path)))
     return exp_path
 
-def get_filename_for_credentials() -> str:
+def get_files_for_credentials() -> str:
     """
-        Returns the path to the credentials file.
+        Returns the paths to the credentials files.
     """
-    filename = None
 
     ctx = Context()
-    file_confg = ctx.lookup(ContextPaths.CONFIG_FILE_CREDENTIALS)
-    filename = get_expanded_path(file_confg)
+    files = ctx.lookup(ContextPaths.CONFIG_CREDENTIAL_FILES)
 
-    return filename
+    return files
 
-def get_filename_for_landscape() -> str:
+def get_files_for_landscape() -> str:
     """
-        Returns the path to the landscape file.
+        Returns the paths to the landscape files.
     """
-    filename = None
 
     ctx = Context()
-    file_confg = ctx.lookup(ContextPaths.CONFIG_FILE_LANDSCAPE)
-    filename = get_expanded_path(file_confg)
+    files = ctx.lookup(ContextPaths.CONFIG_LANDSCAPE_FILES)
 
-    return filename
+    return files
 
-def get_filename_for_runtime() -> str:
+def get_files_for_runtime() -> str:
     """
-        Returns the path to the landscape file.
+        Returns the paths to the landscape files.
     """
-    filename = None
 
     ctx = Context()
-    file_confg = ctx.lookup(ContextPaths.CONFIG_FILE_RUNTIME)
-    filename = get_expanded_path(file_confg)
+    files = ctx.lookup(ContextPaths.CONFIG_RUNTIME_FILES)
 
-    return filename
+    return files
 
-def get_filename_for_topology() -> str:
+def get_files_for_topology() -> str:
     """
-        Returns the path to the topology file.
+        Returns the paths to the topology files.
     """
-    filename = None
 
     ctx = Context()
-    filename = get_expanded_path(ctx.lookup(ContextPaths.CONFIG_FILE_TOPOLOGY))
+    files = get_expanded_path(ctx.lookup(ContextPaths.CONFIG_TOPOLOGY_FILES))
 
-    return filename
+    return files
 
 def get_path_for_artifacts(label: str) -> str:
     """

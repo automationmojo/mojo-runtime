@@ -23,7 +23,7 @@ from datetime import datetime
 from enum import Enum
 
 from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES, MojoRuntimeAlias
-from mojo.xmods.xexceptions import ConfigurationError, SemanticError
+from mojo.xmods.exceptions import ConfigurationError, SemanticError
 from mojo.xmods.xdatetime import parse_datetime
 from mojo.xmods.xlogging.levels import LogLevel
 

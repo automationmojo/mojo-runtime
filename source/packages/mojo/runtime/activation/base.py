@@ -19,7 +19,7 @@ __license__ = "MIT"
 import os
 import sys
 
-from mojo.xmods.xexceptions import (
+from mojo.xmods.exceptions import (
     TRACEBACK_CONFIG,
     VALID_MEMBER_TRACE_POLICY,
     ConfigurationError,
