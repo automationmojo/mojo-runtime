@@ -20,10 +20,12 @@ import os
 import sys
 
 from mojo.xmods.exceptions import (
-    TRACEBACK_CONFIG,
-    VALID_MEMBER_TRACE_POLICY,
     ConfigurationError,
     SemanticError
+)
+from mojo.xmods.xtraceback import (
+    TRACEBACK_CONFIG,
+    VALID_MEMBER_TRACE_POLICY,
 )
 
 from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES
@@ -39,7 +41,7 @@ while True:
     if importer_frame.f_code.co_filename.find("importlib") < 0:
         break
 if "__activation_profile__" not in importer_frame.f_locals:
-    errmsg = "The 'contextualize.activation.base' should not be directly imported." \
+    errmsg = "The 'mojo.runtime.activation.base' should not be directly imported." \
              "  The environment activation should always happen by importing" \
              " an activation profile module."
     raise SemanticError(errmsg)
