@@ -207,4 +207,4 @@ else:
 
 # Activation Step - 7: Import the logging module so we can be the trigger the logging configuration
 # for standard out
-from mojo.xmods.xlogging.foundations # pylint: disable=unused-import,wrong-import-position
+import mojo.xmods.xlogging.foundations # pylint: disable=unused-import,wrong-import-position

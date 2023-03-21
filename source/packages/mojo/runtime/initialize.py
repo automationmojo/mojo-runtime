@@ -118,7 +118,7 @@ def initialize_runtime(*, name: str, logger_name: str, use_credential: Optional[
         MOJO_RUNTIME_OVERRIDES.MJR_SERVICE_NAME = service_name
 
     for field in dir(aliases):
-        if not field.startswith("MJR_"):
+        if field.startswith("MJR_"):
             alias = getattr(aliases, field)
             setattr(MojoRuntimeAlias, field, alias)
 
