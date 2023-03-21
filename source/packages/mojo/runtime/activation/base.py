@@ -47,13 +47,13 @@ if "__activation_profile__" not in importer_frame.f_locals:
 # Perform a semantic check to make sure that the `contextualize.overrides` module has been loaded
 # before this module has been imported and that it was properly initiaized.  This is crucial so
 # we have the correct context name and a logger name.
-if "contextualize.initialize" not in sys.modules:
-    errmsg = "The 'contextualize.activation.base' should not be imported unless the " \
-             "`initialize_contextual` module has been called to set the global name " \
+if "mojo.runtime.initialize" not in sys.modules:
+    errmsg = "The 'mojo.runtime.activation.base' should not be imported unless the " \
+             "`initialize_runtime` module has been called to set the global name " \
              "of the application context."
     raise SemanticError(errmsg)
 elif MOJO_RUNTIME_OVERRIDES.MJR_NAME is None:
-    errmsg = "The `initialize_contextualize` method must be called to set the context" \
+    errmsg = "The `initialize_runtime` method must be called to set the context" \
              "name and logger name before attempting to activate the runtime."
     raise SemanticError(errmsg)
 
