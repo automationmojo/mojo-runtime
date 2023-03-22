@@ -19,16 +19,17 @@ __license__ = "MIT"
 
 from typing import Any, Dict
 
-import collections
 import os
 import yaml
+
+from mojo.xmods.xcollections.mergemap import MergeMap
 
 from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 
 # The override configuration dictionary is added to the ChainMap first so it takes
 # precidence over all other dictionaries in the chain.
-CONFIGURATION_MAP = collections.ChainMap(MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION)
+CONFIGURATION_MAP = MergeMap(MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION)
 
 
 def load_user_configuration(tryonly: bool=True) -> Dict[str, Any]:

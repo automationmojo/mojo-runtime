@@ -17,7 +17,6 @@ __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
 import os
-import tempfile
 
 from logging.handlers import RotatingFileHandler
 
