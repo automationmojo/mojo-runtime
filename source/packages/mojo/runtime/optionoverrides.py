@@ -14,9 +14,7 @@ import os
 from datetime import datetime
 
 from mojo.xmods.xcollections.context import Context, ContextPaths
-from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
-
-from mojo.runtime.configuration import OVERRIDE_CONFIGURATION, load_runtime_configuration
+from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES, resolve_config_files
 
 ctx = Context()
 
@@ -75,6 +73,41 @@ def override_config_credential_files(filenames: List[str]):
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = filenames
     return
 
+def override_config_credentials_names(credential_names: List[str]):
+    """
+        This override function provides a mechanism overriding the MJR_CONFIG_CREDENTIALS_NAMES
+        variable and context configuration setting.
+
+        :param landscape_names: The names of the credential configs to use when creating the credential config.
+    """
+    ctx.insert(ContextPaths.CONFIG_CREDENTIALS_NAMES, credential_names)
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIALS_NAMES = credential_names
+    return
+
+def override_config_credentials_search_paths(search_paths: List[str]):
+    """
+        This override function provides a mechanism overriding the MJR_CONFIG_CREDENTIALS_SEARCH_PATHS
+        variable and context configuration setting.
+
+        :param search_paths: The paths of to use as the credential config search paths.
+
+        ..note: If this override method is used, you must call the 'fixme' method in order
+                to re-resolve the list of landscape files.
+    """
+    ctx.insert(ContextPaths.CONFIG_CREDENTIAL_SEARCH_PATHS, search_paths)
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS = search_paths
+    return
+
+def override_config_credentials_resolve_files():
+    """
+        This override function provides a way to resolve configuration files after setting the
+        '_NAMES' and '_SEARCH_PATHS' variables
+    """
+    config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_NAMES
+    search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = resolve_config_files("credentials", config_names, search_paths)
+    return
+
 def override_config_landscape_files(filenames: List[str]):
     """
         This override function provides a mechanism overriding the MJR_CONFIG_LANDSCAPE_FILES
@@ -92,9 +125,6 @@ def override_config_landscape_names(landscape_names: List[str]):
         variable and context configuration setting.
 
         :param landscape_names: The names of the landscape configs to use when creating the landscape config.
-
-        ..note: If this override method is used, you must call the 'fixme' method in order
-                to re-resolve the list of landscape files.
     """
     ctx.insert(ContextPaths.CONFIG_LANDSCAPE_NAMES, landscape_names)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES = landscape_names
@@ -112,6 +142,16 @@ def override_config_landscape_search_paths(search_paths: List[str]):
     """
     ctx.insert(ContextPaths.CONFIG_LANDSCAPE_SEARCH_PATHS, search_paths)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS = search_paths
+    return
+
+def override_config_landscape_resolve_files():
+    """
+        This override function provides a way to resolve configuration files after setting the
+        '_NAMES' and '_SEARCH_PATHS' variables
+    """
+    config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES
+    search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES = resolve_config_files("landscape", config_names, search_paths)
     return
 
 def override_config_runtime_files(filenames: List[str]):
@@ -200,7 +240,7 @@ def override_debug_breakpoints(breakpoints: List[str]):
         :param breakpoints: A list of wellknown breakpoints that have been activated.
     """
     ctx.insert(ContextPaths.DEBUG_BREAKPOINTS, breakpoints)
-    MOJO_RUNTIME_VARIABLES.MJR_BREAKPOINTS = breakpoints
+    MOJO_RUNTIME_VARIABLES.MJR_DEBUG_BREAKPOINTS = breakpoints
     return
 
 def override_debug_debugger(debugger: str):
@@ -211,7 +251,7 @@ def override_debug_debugger(debugger: str):
         :param debugger: The name of the debugger to setup.
     """
     ctx.insert(ContextPaths.DEBUG_DEBUGGER, debugger)
-    MOJO_RUNTIME_VARIABLES.MJR_DEBUGGER = debugger
+    MOJO_RUNTIME_VARIABLES.MJR_DEBUG_DEBUGGER = debugger
     return
 
 def override_loglevel_console(level: str):
@@ -272,7 +312,7 @@ def override_job_name(job_name: str):
 
     ctx.insert(ContextPaths.JOB_NAME, job_name)
     MOJO_RUNTIME_VARIABLES.MJR_JOB_NAME = job_name
-    
+
     return
 
 
@@ -300,15 +340,15 @@ def override_output_directory(output_directory: str):
     MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = output_directory
     return
 
-def override_runid(runid: str):
+def override_runid(job_id: str):
     """
         This override function provides a mechanism overriding the MJR_RUNID
         variable and context configuration setting.
 
         :param runid: A uuid string that represents the instance of this automation run.
     """
-    ctx.insert(ContextPaths.RUNID, runid)
-    MOJO_RUNTIME_VARIABLES.MJR_RUNID = runid
+    ctx.insert(ContextPaths.JOB_ID, job_id)
+    MOJO_RUNTIME_VARIABLES.MJR_JOB_ID = job_id
     return
 
 def override_starttime(starttime: datetime):

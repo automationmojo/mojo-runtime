@@ -1,7 +1,8 @@
 """
 .. module:: variables
     :platform: Darwin, Linux, Unix, Windows
-    :synopsis: Module which contains the :class:`CONTEXT_VARIABLES` object which is used store the environment variables.
+    :synopsis: Module which contains the :class:`MOJO_RUNTIME_VARIABLES`
+              object which is used store the environment variables.
 
 .. moduleauthor:: Myron Walker <myron.walker@gmail.com>
 """
@@ -59,7 +60,7 @@ class MOJO_RUNTIME_VARIABLES:
     """
 
     if MOJO_RUNTIME_OVERRIDES.MJR_NAME is None:
-        errmsg = "The `CONTEXT_NAME` override must be set by calling the " + \
+        errmsg = "The `MJR_NAME` override must be set by calling the " + \
             "`initialize_contextualize` function before importing this module."
         raise SemanticError(errmsg)
     MJR_NAME = MOJO_RUNTIME_OVERRIDES.MJR_NAME
@@ -113,6 +114,8 @@ class MOJO_RUNTIME_VARIABLES:
     MJR_RESULTS_STATIC_RESOURCE_SRC_DIR = None
 
     MJR_STARTTIME = datetime.now()
+
+    MJR_TESTROOT = None
 
     MJR_USER_CONFIG_DIRECTORY = os.path.join(MJR_HOME_DIRECTORY, "config")
     MJR_USER_CONFIG_NAME = "user-runtime"
@@ -344,5 +347,9 @@ def resolve_runtime_variables():
     MOJO_RUNTIME_VARIABLES.MJR_USER_CONFIG_FILENAME = os.path.join(
         MOJO_RUNTIME_VARIABLES.MJR_USER_CONFIG_DIRECTORY,
         "{}.yaml".format(MOJO_RUNTIME_VARIABLES.MJR_USER_CONFIG_NAME))
+
+    MOJO_RUNTIME_VARIABLES.MJR_TESTROOT = None
+    if MojoRuntimeAlias.MJR_TESTROOT in environ:
+        MOJO_RUNTIME_VARIABLES.MJR_TESTROOT = environ[MojoRuntimeAlias.MJR_TESTROOT]
 
     return
