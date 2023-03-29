@@ -6,7 +6,11 @@ from mojo.xmods.landscaping.landscape import startup_landscape
 
 from mojo.xmods.xcollections.context import Context, ContextPaths
 
+from mojo.runtime.initialize import initialize_runtime
+
 def landscape_example_main():
+
+    initialize_runtime("mjr", "MJR")
 
     output_dir = os.path.expanduser("~/mjr/results/examples/landscaping")
     if not os.path.exists(output_dir):

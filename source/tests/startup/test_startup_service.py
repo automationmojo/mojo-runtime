@@ -7,9 +7,25 @@ class TestStartupService(unittest.TestCase):
 
         from mojo.runtime.initialize import initialize_runtime
 
-        initialize_runtime(name="ctx", logger_name="CTX", service_name="SomeService")
+        service_name = "SomeService"
 
-        from mojo.runtime.activation import service
+        initialize_runtime(name="mjr", logger_name="MJR", service_name=service_name)
+
+        import mojo.runtime.activation.service
+
+        from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
+        from mojo.runtime.paths import get_path_for_output
+
+        output_directory = get_path_for_output()
+
+        assert output_directory.startswith(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY), \
+            "The output path should reside under the home directory"
+
+        output_directory = output_directory.replace(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "").lstrip("/")
+        other_parts = output_directory.split("/")
+
+        assert other_parts[0] == "services", "Next directory should have been 'services'."
+        assert other_parts[1] == service_name, f"Next directory should have been '{service_name}'."
 
         return
 

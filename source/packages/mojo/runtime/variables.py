@@ -69,7 +69,7 @@ class MOJO_RUNTIME_VARIABLES:
     MJR_LOGGER_NAME = MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME
 
     MJR_HOME_DIRECTORY = os.path.expanduser("~/{}".format(MJR_NAME))   
-    MJR_OUTPUT_DIRECTORY = os.path.expanduser("~/{}".format(MJR_NAME))
+    MJR_OUTPUT_DIRECTORY = None
     
     MJR_ACTIVATION_PROFILE = None
     

@@ -41,18 +41,24 @@ MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE = ActivationProfile.Console
 MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.Console
 os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = JobType.Console
 
+temp_output_dir = tempfile.mkdtemp()
+MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = temp_output_dir
+
+def showlog():
+
+    print("OUTPUT FOLDER: {}".format(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY))
+    print("")
+
+    return
+
 if MOJO_RUNTIME_VARIABLES.MJR_INTERACTIVE_CONSOLE:
     # If we are running in an interactive console, then we need to reduce the
     # console log level and we need to output log data to a console log file.
-
-    temp_output_dir = tempfile.mkdtemp()
 
     # Only set the log levels if they were not previously set.  An option to a base
     # command may have set this in order to turn on a different level of verbosity
     if MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE is None:
         MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE = LogLevel.QUIET
-
-    MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = temp_output_dir
 
     # For console activation we don't want to log to the console and we want
     # to point the logs to a different output folder
@@ -67,12 +73,7 @@ if MOJO_RUNTIME_VARIABLES.MJR_INTERACTIVE_CONSOLE:
     LoggingDefaults.DefaultFileLoggingHandler = RotatingFileHandler
     logging_initialize()
 
-    def showlog():
-
-        print("OUTPUT FOLDER: {}".format(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY))
-        print("")
-
-        return
+    showlog()
 
 else:
 
@@ -82,3 +83,5 @@ else:
 
     LoggingDefaults.DefaultFileLoggingHandler = RotatingFileHandler
     logging_initialize()
+
+    showlog()
