@@ -59,10 +59,6 @@ class MOJO_RUNTIME_VARIABLES:
         Container for all the configuration variables that can be passed via environmental variables.
     """
 
-    if MOJO_RUNTIME_OVERRIDES.MJR_NAME is None:
-        errmsg = "The `MJR_NAME` override must be set by calling the " + \
-            "`initialize_contextualize` function before importing this module."
-        raise SemanticError(errmsg)
     MJR_NAME = MOJO_RUNTIME_OVERRIDES.MJR_NAME
 
     MJR_SERVICE_NAME = MOJO_RUNTIME_OVERRIDES.MJR_SERVICE_NAME

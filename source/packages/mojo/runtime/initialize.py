@@ -81,9 +81,9 @@ class MojoRuntimeAlias:
 
 class MOJO_RUNTIME_OVERRIDES:
 
-    MJR_NAME = None
+    MJR_NAME = "mjr"
 
-    MJR_LOGGER_NAME = None
+    MJR_LOGGER_NAME = "MJR"
     MJR_SERVICE_NAME = None
 
     MJR_CONFIG_USE_CREDENTIALS = False
