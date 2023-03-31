@@ -37,3 +37,4 @@ MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.TestRun
 os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = str(MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
 
 import mojo.runtime.activation.base
+

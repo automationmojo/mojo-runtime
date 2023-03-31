@@ -16,8 +16,10 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
+
 import os
 import sys
+import uuid
 
 from mojo.xmods.exceptions import (
     ConfigurationError,
@@ -90,6 +92,7 @@ ctx = Context()
 # because the variables may effect the values we write into the user configuration file.
 from mojo.runtime.variables import (
     MOJO_RUNTIME_VARIABLES,
+    DefaultValue,
     JobType
 )
 
@@ -165,9 +168,14 @@ fill_dict = {
     "starttime": starttime_name
 }
 
+if MOJO_RUNTIME_VARIABLES.MJR_JOB_ID is None or MOJO_RUNTIME_VARIABLES.MJR_JOB_ID == DefaultValue.NotSet:
+    MOJO_RUNTIME_VARIABLES.MJR_JOB_ID = str(uuid.uuid4())
+
 # We want to pull the console and testresults value from the configuration, because if its not there it
 # will be set from the default_dir_template variable
 env = ctx.lookup("/environment")
+env.insert("/starttime", MOJO_RUNTIME_VARIABLES.MJR_STARTTIME)
+env.insert("/job/id", MOJO_RUNTIME_VARIABLES.MJR_JOB_ID)
 
 outdir_full = None
 # Figure out which output directory to set as the current process output directory.  The output directory
