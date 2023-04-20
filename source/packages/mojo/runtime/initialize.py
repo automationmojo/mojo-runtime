@@ -102,11 +102,20 @@ class MOJO_RUNTIME_OVERRIDES:
         }
     }
 
+class MOJO_RUNTIME_STATE:
+    INITIALIZED = False
 
-def initialize_runtime(*, name: str, logger_name: str, use_credential: Optional[bool]=None,
-        use_landscape: Optional[bool]=None, use_runtime: Optional[bool]=None, use_topology: Optional[bool]=False,
-        service_name: Optional[str]=None, aliases: Type[MojoRuntimeAlias]=MojoRuntimeAlias,
-        default_configuration: dict=MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION):
+def initialize_runtime(*, name: str=MOJO_RUNTIME_OVERRIDES.MJR_NAME,
+                          logger_name: str=MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME,
+                          use_credential: Optional[bool]=MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS,
+                          use_landscape: Optional[bool]=MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE,
+                          use_runtime: Optional[bool]=MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME,
+                          use_topology: Optional[bool]=MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY,
+                          default_configuration: dict=MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION,
+                          service_name: Optional[str]=None,
+                          aliases: Type[MojoRuntimeAlias]=MojoRuntimeAlias):
+
+    MOJO_RUNTIME_STATE.INITIALIZED = True
 
     MOJO_RUNTIME_OVERRIDES.MJR_NAME = name
     MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME = logger_name
