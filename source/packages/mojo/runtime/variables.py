@@ -221,6 +221,7 @@ def resolve_runtime_variables():
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_NAMES = ["default-credentials"]
     if MojoRuntimeAlias.MJR_CONFIG_CREDENTIAL_NAMES in environ:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS = True
         MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_NAMES = normalize_name_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_CREDENTIAL_NAMES])
     
@@ -231,6 +232,7 @@ def resolve_runtime_variables():
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES = ["default-landscape"]
     if MojoRuntimeAlias.MJR_CONFIG_LANDSCAPE_NAMES in environ:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE = True
         MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES = normalize_name_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_LANDSCAPE_NAMES])
 
@@ -241,6 +243,7 @@ def resolve_runtime_variables():
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_NAMES = ["default-runtime"]
     if MojoRuntimeAlias.MJR_CONFIG_RUNTIME_NAMES in environ:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME = True
         MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_NAMES = normalize_name_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_RUNTIME_NAMES])
 
@@ -251,6 +254,7 @@ def resolve_runtime_variables():
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_NAMES = ["default-topology"]
     if MojoRuntimeAlias.MJR_CONFIG_TOPOLOGY_NAMES in environ:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY = True
         MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_NAMES = normalize_name_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_TOPOLOGY_NAMES])
 

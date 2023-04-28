@@ -9,8 +9,6 @@ __license__ = "MIT"
 
 from typing import List
 
-import os
-
 from datetime import datetime
 
 from mojo.xmods.xcollections.context import Context, ContextPaths
