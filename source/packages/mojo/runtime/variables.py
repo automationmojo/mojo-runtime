@@ -266,24 +266,32 @@ def resolve_runtime_variables():
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = []
     if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS:
         config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_NAMES
+        if len(config_names) == 0:
+            config_names = ["credentials"]
         search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS
         MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = resolve_config_files("credential", config_names, search_paths)
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES = []
     if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE:
         config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES
+        if len(config_names) == 0:
+            config_names = ["default-landscape"]
         search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS
         MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES = resolve_config_files("landscape", config_names, search_paths)
     
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES = []
     if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME:
         config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_NAMES
+        if len(config_names) == 0:
+            config_names = ["default-runtime"]
         search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_SEARCH_PATHS
         MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES = resolve_config_files("runtime", config_names, search_paths)
     
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES = []
     if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY:
         config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_NAMES
+        if len(config_names) == 0:
+            config_names = ["default-topology"]
         search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS
         MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES = resolve_config_files("topology", config_names, search_paths)
 
