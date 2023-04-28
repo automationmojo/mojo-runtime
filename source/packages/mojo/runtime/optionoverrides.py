@@ -15,6 +15,7 @@ from datetime import datetime
 
 from mojo.xmods.xcollections.context import Context, ContextPaths
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES, resolve_config_files
+from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES
 
 ctx = Context()
 
@@ -71,6 +72,7 @@ def override_config_credential_files(filenames: List[str]):
     """
     ctx.insert(ContextPaths.CONFIG_CREDENTIAL_FILES, filenames)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = filenames
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS = True
     return
 
 def override_config_credentials_names(credential_names: List[str]):
@@ -82,6 +84,7 @@ def override_config_credentials_names(credential_names: List[str]):
     """
     ctx.insert(ContextPaths.CONFIG_CREDENTIALS_NAMES, credential_names)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIALS_NAMES = credential_names
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS = True
     return
 
 def override_config_credentials_search_paths(search_paths: List[str]):
@@ -117,6 +120,7 @@ def override_config_landscape_files(filenames: List[str]):
     """
     ctx.insert(ContextPaths.CONFIG_LANDSCAPE_FILES, filenames)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES = filenames
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE = True
     return
 
 def override_config_landscape_names(landscape_names: List[str]):
@@ -128,6 +132,7 @@ def override_config_landscape_names(landscape_names: List[str]):
     """
     ctx.insert(ContextPaths.CONFIG_LANDSCAPE_NAMES, landscape_names)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES = landscape_names
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE = True
     return
 
 def override_config_landscape_search_paths(search_paths: List[str]):
@@ -163,6 +168,7 @@ def override_config_runtime_files(filenames: List[str]):
     """
     ctx.insert(ContextPaths.CONFIG_RUNTIME_FILES, filenames)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES = filenames
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME = True
     return
 
 def override_config_runtime_names(runtime_names: List[str]):
@@ -177,6 +183,7 @@ def override_config_runtime_names(runtime_names: List[str]):
     """
     ctx.insert(ContextPaths.CONFIG_RUNTIME_NAMES, runtime_names)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_NAMES = runtime_names
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME = True
     return
 
 def override_config_runtime_search_paths(search_paths: List[str]):
@@ -202,6 +209,7 @@ def override_config_topology_files(filenames: List[str]):
     """
     ctx.insert(ContextPaths.CONFIG_TOPOLOGY_FILES, filenames)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES = filenames
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY = True
     return
 
 def override_config_topology_names(topology_names: List[str]):
@@ -216,6 +224,7 @@ def override_config_topology_names(topology_names: List[str]):
     """
     ctx.insert(ContextPaths.CONFIG_TOPOLOGY_NAMES, topology_names)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_NAMES = topology_names
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY = True
     return
 
 def override_config_topolofy_search_paths(search_paths: List[str]):
