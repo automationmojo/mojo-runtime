@@ -133,4 +133,8 @@ def initialize_runtime(*, name: str=MOJO_RUNTIME_OVERRIDES.MJR_NAME,
             alias = getattr(aliases, field)
             setattr(MojoRuntimeAlias, field, alias)
 
+    from mojo.runtime.variables import resolve_runtime_variables
+
+    resolve_runtime_variables()
+
     return

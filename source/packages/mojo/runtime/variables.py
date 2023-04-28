@@ -187,7 +187,7 @@ def resolve_runtime_variables():
     if MojoRuntimeAlias.MJR_HOME_DIRECTORY in environ:
         MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY = environ[MojoRuntimeAlias.MJR_HOME_DIRECTORY]
     
-    MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = os.getcwd()
+    MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = None
     if MojoRuntimeAlias.MJR_OUTPUT_DIRECTORY in environ:
         MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = environ[MojoRuntimeAlias.MJR_OUTPUT_DIRECTORY]
 
