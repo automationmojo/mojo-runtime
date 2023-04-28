@@ -174,24 +174,26 @@ if MOJO_RUNTIME_VARIABLES.MJR_JOB_ID is None or MOJO_RUNTIME_VARIABLES.MJR_JOB_I
 # We want to pull the console and testresults value from the configuration, because if its not there it
 # will be set from the default_dir_template variable
 env = ctx.lookup("/environment")
-env.insert("/starttime", MOJO_RUNTIME_VARIABLES.MJR_STARTTIME)
-env.insert("/job/id", MOJO_RUNTIME_VARIABLES.MJR_JOB_ID)
+ctx.insert(ContextPaths.STARTTIME, MOJO_RUNTIME_VARIABLES.MJR_STARTTIME)
+ctx.insert(ContextPaths.JOB_ID, MOJO_RUNTIME_VARIABLES.MJR_JOB_ID)
 
 outdir_full = None
 # Figure out which output directory to set as the current process output directory.  The output directory
 # determines where logging will go and is different depending on the activation mode of the test framework
 if MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY is not None:
     outdir_full = expand_path(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY % fill_dict)
-    env["output_directory"] = outdir_full
+    ctx.insert(ContextPaths.OUTPUT_DIRECTORY, outdir_full)
 else:
+    outdir_full = ""
+    staticdir_full = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "static")
+
     if jobtype == JobType.Console:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "console", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/console-results", default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         outdir_full = expand_path(filled_dir_results)
         configuration.insert("/paths/results/console", outdir_full)
-        
-        env["output_directory"] = outdir_full
+
     elif jobtype == JobType.Orchestration:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "orchestration", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/orchestration-results", default=default_dir_template)
@@ -199,14 +201,12 @@ else:
         outdir_full = expand_path(filled_dir_results)
         configuration.insert("/paths/results/orchestration", outdir_full)
 
-        env["output_directory"] = outdir_full
     elif jobtype == JobType.Service:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "service", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/service-logs", default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         configuration.insert("/paths/results/service", filled_dir_results)
 
-        env["output_directory"] = outdir_full
     else:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "testresults", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/test-results", default=default_dir_template)
@@ -214,7 +214,9 @@ else:
         outdir_full = expand_path(filled_dir_results)
         configuration.insert("/paths/testresults", outdir_full)
 
-        env["output_directory"] = outdir_full
+    ctx.insert(ContextPaths.OUTPUT_DIRECTORY, outdir_full)
+    ctx.insert(ContextPaths.DIR_RESULTS_RESOURCE_DEST, staticdir_full)
+
 
 
 
