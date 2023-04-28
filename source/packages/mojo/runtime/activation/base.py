@@ -178,15 +178,16 @@ ctx.insert(ContextPaths.STARTTIME, MOJO_RUNTIME_VARIABLES.MJR_STARTTIME)
 ctx.insert(ContextPaths.JOB_ID, MOJO_RUNTIME_VARIABLES.MJR_JOB_ID)
 
 outdir_full = None
+
+if MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_RESOURCE_DEST_DIR is None:
+    staticdir_full = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "static")
+    MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_RESOURCE_DEST_DIR = staticdir_full
+
 # Figure out which output directory to set as the current process output directory.  The output directory
 # determines where logging will go and is different depending on the activation mode of the test framework
 if MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY is not None:
     outdir_full = expand_path(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY % fill_dict)
-    ctx.insert(ContextPaths.OUTPUT_DIRECTORY, outdir_full)
 else:
-    outdir_full = ""
-    staticdir_full = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "static")
-
     if jobtype == JobType.Console:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "console", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/console-results", default=default_dir_template)
@@ -214,10 +215,8 @@ else:
         outdir_full = expand_path(filled_dir_results)
         configuration.insert("/paths/testresults", outdir_full)
 
-    ctx.insert(ContextPaths.OUTPUT_DIRECTORY, outdir_full)
-    ctx.insert(ContextPaths.DIR_RESULTS_RESOURCE_DEST, staticdir_full)
-
-
+ctx.insert(ContextPaths.OUTPUT_DIRECTORY, outdir_full)
+ctx.insert(ContextPaths.DIR_RESULTS_RESOURCE_DEST, MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_RESOURCE_DEST_DIR)
 
 
 # Activation Step - 7: Import the logging module so we can be the trigger the logging configuration
