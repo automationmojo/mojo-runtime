@@ -303,6 +303,10 @@ def resolve_runtime_variables():
     if MojoRuntimeAlias.MJR_DEBUG_DEBUGGER in environ:
         MOJO_RUNTIME_VARIABLES.MJR_DEBUG_DEBUGGER = environ[MojoRuntimeAlias.MJR_DEBUG_DEBUGGER]
     
+    MOJO_RUNTIME_OVERRIDES.MJR_EXTENSION_FACTORY_ADDITIONS
+    if MojoRuntimeAlias.MJR_EXTENSION_FACTORY_ADDITIONS in environ:
+        MOJO_RUNTIME_VARIABLES.MJR_EXTENSION_FACTORY_ADDITIONS = environ[MojoRuntimeAlias.MJR_EXTENSION_FACTORY_ADDITIONS]
+
     MOJO_RUNTIME_VARIABLES.MJR_JOB_ID = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_JOB_ID in environ:
         MOJO_RUNTIME_VARIABLES.MJR_JOB_ID = environ[MojoRuntimeAlias.MJR_JOB_ID]
