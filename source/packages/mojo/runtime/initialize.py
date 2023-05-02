@@ -46,6 +46,8 @@ class MojoRuntimeAlias:
     MJR_DEBUG_BREAKPOINTS = "MJR_DEBUG_BREAKPOINTS"
     MJR_DEBUG_DEBUGGER = "MJR_DEBUG_DEBUGGER"
     
+    MJR_EXTENSION_FACTORY_ADDITIONS = "MJR_EXTENSION_FACTORY_ADDITIONS"
+
     MJR_HOME_DIRECTORY = "MJR_HOME_DIRECTORY"
 
     MJR_INTERACTIVE_CONSOLE = "MJR_INTERACTIVE_CONSOLE"
@@ -105,6 +107,17 @@ class MOJO_RUNTIME_OVERRIDES:
 class MOJO_RUNTIME_STATE:
     INITIALIZED = False
 
+def resolve_extension_factories():
+
+    if MOJO_RUNTIME_OVERRIDES.MJR_EXTENSION_FACTORY_ADDITIONS is not None:
+        modules_raw = MOJO_RUNTIME_OVERRIDES.MJR_EXTENSION_FACTORY_ADDITIONS.split(",")
+        modules_trimmed = [nm.trim() for nm in modules_raw]
+
+        from mojo.xmods.extension.configured import SuperFactory
+        SuperFactory.search_modules.extend(modules_trimmed)
+
+    return
+
 def initialize_runtime(*, name: str=MOJO_RUNTIME_OVERRIDES.MJR_NAME,
                           logger_name: str=MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME,
                           use_credential: Optional[bool]=MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS,
@@ -112,8 +125,7 @@ def initialize_runtime(*, name: str=MOJO_RUNTIME_OVERRIDES.MJR_NAME,
                           use_runtime: Optional[bool]=MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME,
                           use_topology: Optional[bool]=MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY,
                           default_configuration: dict=MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION,
-                          service_name: Optional[str]=None,
-                          aliases: Type[MojoRuntimeAlias]=MojoRuntimeAlias):
+                          service_name: Optional[str]=None):
 
     MOJO_RUNTIME_STATE.INITIALIZED = True
 
@@ -128,13 +140,11 @@ def initialize_runtime(*, name: str=MOJO_RUNTIME_OVERRIDES.MJR_NAME,
     if service_name is not None:
         MOJO_RUNTIME_OVERRIDES.MJR_SERVICE_NAME = service_name
 
-    for field in dir(aliases):
-        if field.startswith("MJR_"):
-            alias = getattr(aliases, field)
-            setattr(MojoRuntimeAlias, field, alias)
-
     from mojo.runtime.variables import resolve_runtime_variables
 
     resolve_runtime_variables()
 
+    resolve_extension_factories()
+
     return
+
