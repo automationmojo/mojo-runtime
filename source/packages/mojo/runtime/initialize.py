@@ -109,9 +109,11 @@ class MOJO_RUNTIME_STATE:
 
 def resolve_extension_factories():
 
-    if MOJO_RUNTIME_OVERRIDES.MJR_EXTENSION_FACTORY_ADDITIONS is not None:
-        modules_raw = MOJO_RUNTIME_OVERRIDES.MJR_EXTENSION_FACTORY_ADDITIONS.split(",")
-        modules_trimmed = [nm.trim() for nm in modules_raw]
+    from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
+
+    if MOJO_RUNTIME_VARIABLES.MJR_EXTENSION_FACTORY_ADDITIONS is not None:
+        modules_raw = MOJO_RUNTIME_VARIABLES.MJR_EXTENSION_FACTORY_ADDITIONS.split(",")
+        modules_trimmed = [nm.strip() for nm in modules_raw]
 
         from mojo.xmods.extension.configured import SuperFactory
         SuperFactory.search_modules.extend(modules_trimmed)
