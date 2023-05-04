@@ -83,7 +83,7 @@ from mojo.runtime.configuration import CONFIGURATION_MAP
 # Activation Step - 2: Force the global shared context to load, we want this to happen as early
 # as possible because we don't want to every replace its reference or invalidate
 # any references to it that someone might have acquired.
-from mojo.runtime.context import Context # pylint: disable=wrong-import-position
+from mojo.xmods.xcollections.context import Context # pylint: disable=wrong-import-position
 
 ctx = Context()
 
