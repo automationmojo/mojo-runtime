@@ -112,6 +112,7 @@ def resolve_extension_factories():
     from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 
     if MOJO_RUNTIME_VARIABLES.MJR_EXTENSION_FACTORY_ADDITIONS is not None:
+
         modules_raw = MOJO_RUNTIME_VARIABLES.MJR_EXTENSION_FACTORY_ADDITIONS.split(",")
         modules_trimmed = [nm.strip() for nm in modules_raw]
 
@@ -120,24 +121,31 @@ def resolve_extension_factories():
 
     return
 
-def initialize_runtime(*, name: str=MOJO_RUNTIME_OVERRIDES.MJR_NAME,
-                          logger_name: str=MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME,
-                          use_credential: Optional[bool]=MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS,
-                          use_landscape: Optional[bool]=MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE,
-                          use_runtime: Optional[bool]=MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME,
-                          use_topology: Optional[bool]=MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY,
-                          default_configuration: dict=MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION,
+def initialize_runtime(*, name: Optional[str]=None,
+                          logger_name: Optional[str]=None,
+                          use_credential: Optional[bool]=None,
+                          use_landscape: Optional[bool]=None,
+                          use_runtime: Optional[bool]=None,
+                          use_topology: Optional[bool]=None,
+                          default_configuration: dict=None,
                           service_name: Optional[str]=None):
 
     MOJO_RUNTIME_STATE.INITIALIZED = True
 
-    MOJO_RUNTIME_OVERRIDES.MJR_NAME = name
-    MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME = logger_name
-    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS = use_credential
-    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE = use_landscape
-    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME = use_runtime
-    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY = use_topology
-    MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION = default_configuration
+    if name is not None:
+        MOJO_RUNTIME_OVERRIDES.MJR_NAME = name
+    if logger_name is not None:
+        MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME = logger_name
+    if use_credential is not None:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS = use_credential
+    if use_landscape is not None:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE = use_landscape
+    if use_runtime is not None:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME = use_runtime
+    if use_topology is not None:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY = use_topology
+    if default_configuration is not None:
+        MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION = default_configuration
 
     if service_name is not None:
         MOJO_RUNTIME_OVERRIDES.MJR_SERVICE_NAME = service_name
@@ -149,4 +157,3 @@ def initialize_runtime(*, name: str=MOJO_RUNTIME_OVERRIDES.MJR_NAME,
     resolve_extension_factories()
 
     return
-
