@@ -168,7 +168,7 @@ def resolve_config_files(config_type: str, config_names: List[str], search_path:
         for chk_path in search_path:
             errmsg_lines.append(f"    {chk_path}")
 
-        errmsg = os.path.join(errmsg_lines)
+        errmsg = os.linesep.join(errmsg_lines)
         raise ConfigurationError(errmsg)
 
     return config_files
