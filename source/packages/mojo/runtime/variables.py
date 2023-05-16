@@ -127,7 +127,7 @@ def normalize_name_list(names: str, sep: str=","):
     
     return norm_names
 
-def normalize_path_list(paths: str, sep: str=";"):
+def normalize_path_list(paths: str, sep: str=os.pathsep):
     norm_paths: List[str] = []
 
     search_paths: List[str] = paths.split(sep)
