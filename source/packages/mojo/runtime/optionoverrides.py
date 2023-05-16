@@ -263,6 +263,24 @@ def override_config_topology_resolve_files():
     ctx.insert(ContextPaths.CONFIG_TOPOLOGY_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES)
     return
 
+def override_configuration_requirements(require_credentials: bool,
+        require_landscape: bool, require_runtime: bool, require_topology: bool):
+    """
+        Called before or after activating the runtime in order to modify the required configuration
+        files based on the applicaiton or run requirements.
+
+        :param require_credentials: Indicates a credentials configuration file is required.
+        :param require_landscape: Indicates a landscape configuration file is required.
+        :param require_runtime: Indicates a runtime configuration file is required.
+        :param require_topology: Indicates a topology configuration file is required.
+    """
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS = require_credentials
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE = require_landscape
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME = require_runtime
+    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY = require_topology
+
+    return
+
 def override_debug_breakpoints(breakpoints: List[str]):
     """
         This override function provides a mechanism overriding the MJR_BREAKPOINTS

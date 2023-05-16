@@ -130,7 +130,7 @@ def normalize_name_list(names: str, sep: str=","):
 def normalize_path_list(paths: str, sep: str=";"):
     norm_paths: List[str] = []
 
-    search_paths: List[str] = os.path.split(paths, sep)
+    search_paths: List[str] = paths.split(sep)
     for nxt_path in search_paths:
         nxt_full_path = os.path.abspath(os.path.expandvars(os.path.expanduser(nxt_path.strip())))
         norm_paths.append(nxt_full_path)
