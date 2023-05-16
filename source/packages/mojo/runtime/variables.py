@@ -120,7 +120,7 @@ class MOJO_RUNTIME_VARIABLES:
 def normalize_name_list(names: str, sep: str=","):
     norm_names: List[str] = []
 
-    cand_names: List[str] = os.path.split(names, sep)
+    cand_names: List[str] = names.split(sep)
     for nxt_name in cand_names:
         nname = nxt_name.strip()
         norm_names.append(nname)
@@ -136,7 +136,7 @@ def normalize_path_list(paths: str, sep: str=";"):
         norm_paths.append(nxt_full_path)
 
     return norm_paths
-
+  
 def resolve_config_files(config_type: str, config_names: List[str], search_path: List[str]):
     config_files = []
     missing_files = []
