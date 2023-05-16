@@ -140,6 +140,7 @@ def normalize_path_list(paths: str, sep: str=";"):
 def resolve_config_files(config_type: str, config_names: List[str], search_path: List[str]):
     config_files = []
     missing_files = []
+    checked_paths = []
 
     for chk_name in config_names:
         found_filename = None
@@ -149,6 +150,8 @@ def resolve_config_files(config_type: str, config_names: List[str], search_path:
             if os.path.exists(chk_filename):
                 found_filename = chk_filename
                 break
+            else:
+                checked_paths.append(chk_filename)
         
         if found_filename is not None:
             config_files.append(found_filename)
@@ -166,6 +169,10 @@ def resolve_config_files(config_type: str, config_names: List[str], search_path:
         
         errmsg_lines.append("SEARCH PATHS:")
         for chk_path in search_path:
+            errmsg_lines.append(f"    {chk_path}")
+
+        errmsg_lines.append("CHECKED_PATHS:")
+        for chk_path in checked_paths:
             errmsg_lines.append(f"    {chk_path}")
 
         errmsg = os.linesep.join(errmsg_lines)
