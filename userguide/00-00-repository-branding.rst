@@ -86,7 +86,7 @@ The project information is contained in the variables in the section detailed be
     # -- Project information -----------------------------------------------------
 
     project = u'Automation Kit - Quick Start'
-    copyright = u'2022, Myron W. Walker'
+    copyright = u'2023, Myron W. Walker'
     author = u'Myron W. Walker'
 
     # The short X.Y version
