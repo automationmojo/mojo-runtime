@@ -1,8 +1,10 @@
 [tool.poetry]
 name = "mojo-runtime"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
-version = "0.0.41"
-authors = []
+version = "0.0.42"
+authors = [
+    "Myron Walker <myron.walker@gmail.com>"
+]
 readme = "README.md"
 license = "LICENSE.txt"
 classifiers = [
