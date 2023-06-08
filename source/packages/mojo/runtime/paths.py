@@ -213,7 +213,7 @@ def get_path_for_diagnostics(label: str) -> str:
                   one job type.
     """
 
-    
+
     trdir = get_path_for_output()
     diagnostics_dir = os.path.join(trdir, "diagnostics", label)
 
@@ -258,7 +258,7 @@ def get_summary_html_template_source() -> str:
     ctx = Context()
 
     template = ctx.lookup(ContextPaths.FILE_RESULTS_TEMPLATE)
-    
+
     if template is None:
         errmsg = "Error attempting to lookup the summary html template source."
         raise RuntimeError(errmsg)

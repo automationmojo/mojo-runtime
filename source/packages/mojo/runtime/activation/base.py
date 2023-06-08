@@ -101,7 +101,7 @@ from mojo.xmods.xcollections.context import ContextPaths
 from mojo.xmods.xdatetime import FORMAT_DATETIME
 
 # Activation Step - 4: Load the user and runtime configuration and add it to the CONFIGURATION_MAP
-# 'ChainMap' so the runtime settings can take precedence over the user default settings. 
+# 'ChainMap' so the runtime settings can take precedence over the user default settings.
 from mojo.runtime.configuration import load_user_configuration
 
 
@@ -144,7 +144,7 @@ if "traceback-policy-override" in configuration["diagnostics"]:
     TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE = configuration["diagnostics"]["traceback-policy-override"]
 
 
-# Activation Step - 5: After 
+# Activation Step - 5: After
 if MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE is not None and MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE in LOG_LEVEL_NAMES:
     console_level = MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE
 else:

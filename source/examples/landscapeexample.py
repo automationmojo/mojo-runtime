@@ -10,7 +10,7 @@ from mojo.runtime.initialize import initialize_runtime
 
 def landscape_example_main():
 
-    initialize_runtime("mjr", "MJR")
+    initialize_runtime(name="mjr", logger_name="MJR")
 
     output_dir = os.path.expanduser("~/mjr/results/examples/landscaping")
     if not os.path.exists(output_dir):
@@ -45,6 +45,11 @@ def landscape_example_main():
 
     for dev in all_devices:
         print(f"{dev}")
+
+    all_services = lscape.get_services()
+
+    for svc in all_services:
+        print(f"{svc}")
 
     return
 

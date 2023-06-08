@@ -64,11 +64,11 @@ class MOJO_RUNTIME_VARIABLES:
     MJR_SERVICE_NAME = MOJO_RUNTIME_OVERRIDES.MJR_SERVICE_NAME
     MJR_LOGGER_NAME = MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME
 
-    MJR_HOME_DIRECTORY = os.path.expanduser("~/{}".format(MJR_NAME))   
+    MJR_HOME_DIRECTORY = os.path.expanduser("~/{}".format(MJR_NAME))
     MJR_OUTPUT_DIRECTORY = None
-    
+
     MJR_ACTIVATION_PROFILE = None
-    
+
     MJR_AUTOMATION_POD = DefaultValue.NotSet
 
     MJR_BUILD_BRANCH = DefaultValue.NotSet
@@ -93,7 +93,12 @@ class MOJO_RUNTIME_VARIABLES:
     MJR_DEBUG_BREAKPOINTS = None
     MJR_DEBUG_DEBUGGER = None
 
+    MJR_EXTENSION_FACTORY_ADDITIONS = None
+
     MJR_INTERACTIVE_CONSOLE = False
+
+    MJR_PIPELINE_ID = DefaultValue.NotSet
+    MJR_PIPELINE_NAME = DefaultValue.NotSet
 
     MJR_JOB_ID = DefaultValue.NotSet
     MJR_JOB_TYPE = JobType.Unknown
@@ -101,7 +106,7 @@ class MOJO_RUNTIME_VARIABLES:
     MJR_JOB_LABEL = DefaultValue.NotSet
     MJR_JOB_NAME = DefaultValue.NotSet
     MJR_JOB_OWNER = DefaultValue.NotSet
-    
+
     MJR_LOG_LEVEL_CONSOLE = LogLevel.WARNING
     MJR_LOG_LEVEL_FILE = LogLevel.DEBUG
 
@@ -124,7 +129,7 @@ def normalize_name_list(names: str, sep: str=","):
     for nxt_name in cand_names:
         nname = nxt_name.strip()
         norm_names.append(nname)
-    
+
     return norm_names
 
 def normalize_path_list(paths: str, sep: str=os.pathsep):
@@ -136,7 +141,7 @@ def normalize_path_list(paths: str, sep: str=os.pathsep):
         norm_paths.append(nxt_full_path)
 
     return norm_paths
-  
+
 def resolve_config_files(config_type: str, config_names: List[str], search_path: List[str]):
     config_files = []
     missing_files = []
@@ -152,7 +157,7 @@ def resolve_config_files(config_type: str, config_names: List[str], search_path:
                 break
             else:
                 checked_paths.append(chk_filename)
-        
+
         if found_filename is not None:
             config_files.append(found_filename)
         else:
@@ -166,7 +171,7 @@ def resolve_config_files(config_type: str, config_names: List[str], search_path:
 
         for chk_name in config_names:
             errmsg_lines.append(f"    {chk_name}")
-        
+
         errmsg_lines.append("SEARCH PATHS:")
         for chk_path in search_path:
             errmsg_lines.append(f"    {chk_path}")
@@ -198,7 +203,7 @@ def resolve_runtime_variables():
         "~/{}".format(MOJO_RUNTIME_VARIABLES.MJR_NAME))
     if MojoRuntimeAlias.MJR_HOME_DIRECTORY in environ:
         MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY = environ[MojoRuntimeAlias.MJR_HOME_DIRECTORY]
-    
+
     MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = None
     if MojoRuntimeAlias.MJR_OUTPUT_DIRECTORY in environ:
         MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = environ[MojoRuntimeAlias.MJR_OUTPUT_DIRECTORY]
@@ -214,11 +219,11 @@ def resolve_runtime_variables():
     MOJO_RUNTIME_VARIABLES.MJR_BUILD_BRANCH = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_BUILD_BRANCH in environ:
         MOJO_RUNTIME_VARIABLES.MJR_BUILD_BRANCH = environ[MojoRuntimeAlias.MJR_BUILD_BRANCH]
-    
+
     MOJO_RUNTIME_VARIABLES.MJR_BUILD_NAME = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_BUILD_NAME in environ:
         MOJO_RUNTIME_VARIABLES.MJR_BUILD_NAME = environ[MojoRuntimeAlias.MJR_BUILD_NAME]
-    
+
     MOJO_RUNTIME_VARIABLES.MJR_BUILD_FLAVOR = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_BUILD_FLAVOR in environ:
         MOJO_RUNTIME_VARIABLES.MJR_BUILD_FLAVOR = environ[MojoRuntimeAlias.MJR_BUILD_FLAVOR]
@@ -236,7 +241,7 @@ def resolve_runtime_variables():
         MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS = True
         MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_NAMES = normalize_name_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_CREDENTIAL_NAMES])
-    
+
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS = [os.path.join(
         MOJO_RUNTIME_VARIABLES.MJR_CONFIG_DIRECTORY)]
     if MojoRuntimeAlias.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS in environ:
@@ -322,10 +327,14 @@ def resolve_runtime_variables():
     MOJO_RUNTIME_VARIABLES.MJR_DEBUG_DEBUGGER = None
     if MojoRuntimeAlias.MJR_DEBUG_DEBUGGER in environ:
         MOJO_RUNTIME_VARIABLES.MJR_DEBUG_DEBUGGER = environ[MojoRuntimeAlias.MJR_DEBUG_DEBUGGER]
-    
+
     MOJO_RUNTIME_VARIABLES.MJR_EXTENSION_FACTORY_ADDITIONS = None
     if MojoRuntimeAlias.MJR_EXTENSION_FACTORY_ADDITIONS in environ:
         MOJO_RUNTIME_VARIABLES.MJR_EXTENSION_FACTORY_ADDITIONS = environ[MojoRuntimeAlias.MJR_EXTENSION_FACTORY_ADDITIONS]
+
+    MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_ID = DefaultValue.NotSet
+    if MojoRuntimeAlias.MJR_PIPELINE_ID in environ:
+        MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_ID = environ[MojoRuntimeAlias.MJR_PIPELINE_ID]
 
     MOJO_RUNTIME_VARIABLES.MJR_JOB_ID = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_JOB_ID in environ:
@@ -334,11 +343,11 @@ def resolve_runtime_variables():
     MOJO_RUNTIME_VARIABLES.MJR_JOB_INITIATOR = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_JOB_INITIATOR in environ:
         MOJO_RUNTIME_VARIABLES.MJR_JOB_INITIATOR = environ[MojoRuntimeAlias.MJR_JOB_INITIATOR]
-    
+
     MOJO_RUNTIME_VARIABLES.MJR_JOB_LABEL = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_JOB_LABEL in environ:
         MOJO_RUNTIME_VARIABLES.MJR_JOB_LABEL = environ[MojoRuntimeAlias.MJR_JOB_LABEL]
-    
+
     MOJO_RUNTIME_VARIABLES.MJR_JOB_NAME = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_JOB_NAME in environ:
         MOJO_RUNTIME_VARIABLES.MJR_JOB_NAME = environ[MojoRuntimeAlias.MJR_JOB_NAME]
@@ -362,7 +371,7 @@ def resolve_runtime_variables():
     MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_RESOURCE_DEST_DIR = None
     if MojoRuntimeAlias.MJR_RESULTS_STATIC_RESOURCE_DEST_DIR in environ:
         MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_RESOURCE_DEST_DIR = environ[MojoRuntimeAlias.MJR_RESULTS_STATIC_RESOURCE_DEST_DIR]
-    
+
     MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_RESOURCE_SRC_DIR = None
     if MojoRuntimeAlias.MJR_RESULTS_STATIC_RESOURCE_SRC_DIR in environ:
         MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_RESOURCE_SRC_DIR = environ[MojoRuntimeAlias.MJR_RESULTS_STATIC_RESOURCE_SRC_DIR]
