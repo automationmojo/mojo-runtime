@@ -335,30 +335,42 @@ def resolve_runtime_variables():
     MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_ID = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_PIPELINE_ID in environ:
         MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_ID = environ[MojoRuntimeAlias.MJR_PIPELINE_ID]
+    ctx.insert(ContextPaths.PIPELINE_ID, MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_ID)
+    
+    MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_NAME = DefaultValue.NotSet
+    if MojoRuntimeAlias.MJR_PIPELINE_NAME in environ:
+        MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_NAME = environ[MojoRuntimeAlias.MJR_PIPELINE_NAME]
+    ctx.insert(ContextPaths.PIPELINE_NAME, MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_NAME)
 
     MOJO_RUNTIME_VARIABLES.MJR_JOB_ID = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_JOB_ID in environ:
         MOJO_RUNTIME_VARIABLES.MJR_JOB_ID = environ[MojoRuntimeAlias.MJR_JOB_ID]
+    ctx.insert(ContextPaths.JOB_ID, MOJO_RUNTIME_VARIABLES.MJR_JOB_ID)
 
     MOJO_RUNTIME_VARIABLES.MJR_JOB_INITIATOR = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_JOB_INITIATOR in environ:
         MOJO_RUNTIME_VARIABLES.MJR_JOB_INITIATOR = environ[MojoRuntimeAlias.MJR_JOB_INITIATOR]
+    ctx.insert(ContextPaths.JOB_INITIATOR, MOJO_RUNTIME_VARIABLES.MJR_JOB_INITIATOR)
 
     MOJO_RUNTIME_VARIABLES.MJR_JOB_LABEL = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_JOB_LABEL in environ:
         MOJO_RUNTIME_VARIABLES.MJR_JOB_LABEL = environ[MojoRuntimeAlias.MJR_JOB_LABEL]
+    ctx.insert(ContextPaths.JOB_LABEL, MOJO_RUNTIME_VARIABLES.MJR_JOB_LABEL)
 
     MOJO_RUNTIME_VARIABLES.MJR_JOB_NAME = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_JOB_NAME in environ:
         MOJO_RUNTIME_VARIABLES.MJR_JOB_NAME = environ[MojoRuntimeAlias.MJR_JOB_NAME]
+    ctx.insert(ContextPaths.JOB_NAME, MOJO_RUNTIME_VARIABLES.MJR_JOB_NAME)
 
     MOJO_RUNTIME_VARIABLES.MJR_JOB_OWNER = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_JOB_OWNER in environ:
         MOJO_RUNTIME_VARIABLES.MJR_JOB_OWNER = environ[MojoRuntimeAlias.MJR_JOB_OWNER]
+    ctx.insert(ContextPaths.JOB_OWNER, MOJO_RUNTIME_VARIABLES.MJR_JOB_OWNER)
 
     MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.Unknown
     if MojoRuntimeAlias.MJR_JOB_TYPE in environ:
         MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = environ[MojoRuntimeAlias.MJR_JOB_TYPE]
+    ctx.insert(ContextPaths.JOB_TYPE, MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
 
     MOJO_RUNTIME_VARIABLES.MJR_INTERACTIVE_CONSOLE = False
     if MojoRuntimeAlias.MJR_INTERACTIVE_CONSOLE in environ:
