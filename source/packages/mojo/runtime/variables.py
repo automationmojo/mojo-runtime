@@ -22,6 +22,7 @@ import os
 
 from datetime import datetime
 from enum import Enum
+from uuid import uuid4
 
 from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES, MojoRuntimeAlias
 from mojo.xmods.exceptions import ConfigurationError, SemanticError
@@ -96,6 +97,8 @@ class MOJO_RUNTIME_VARIABLES:
     MJR_EXTENSION_FACTORY_ADDITIONS = None
 
     MJR_INTERACTIVE_CONSOLE = False
+
+    MJR_RUN_ID = DefaultValue.NotSet
 
     MJR_PIPELINE_ID = DefaultValue.NotSet
     MJR_PIPELINE_NAME = DefaultValue.NotSet
@@ -331,6 +334,11 @@ def resolve_runtime_variables():
     MOJO_RUNTIME_VARIABLES.MJR_EXTENSION_FACTORY_ADDITIONS = None
     if MojoRuntimeAlias.MJR_EXTENSION_FACTORY_ADDITIONS in environ:
         MOJO_RUNTIME_VARIABLES.MJR_EXTENSION_FACTORY_ADDITIONS = environ[MojoRuntimeAlias.MJR_EXTENSION_FACTORY_ADDITIONS]
+
+    MOJO_RUNTIME_VARIABLES.MJR_RUN_ID = str(uuid4())
+    if MojoRuntimeAlias.MJR_RUN_ID in environ:
+        MOJO_RUNTIME_VARIABLES.MJR_RUN_ID = environ[MojoRuntimeAlias.MJR_RUN_ID]
+    ctx.insert(ContextPaths.RUNID, MOJO_RUNTIME_VARIABLES.MJR_RUN_ID)
 
     MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_ID = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_PIPELINE_ID in environ:
