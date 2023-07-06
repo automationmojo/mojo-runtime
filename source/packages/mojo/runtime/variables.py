@@ -72,6 +72,7 @@ class MOJO_RUNTIME_VARIABLES:
 
     MJR_AUTOMATION_POD = DefaultValue.NotSet
 
+    MJR_BUILD_RELEASE = DefaultValue.NotSet
     MJR_BUILD_BRANCH = DefaultValue.NotSet
     MJR_BUILD_FLAVOR = DefaultValue.NotSet
     MJR_BUILD_NAME = DefaultValue.NotSet
@@ -218,22 +219,31 @@ def resolve_runtime_variables():
     MOJO_RUNTIME_VARIABLES.MJR_AUTOMATION_POD = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_AUTOMATION_POD in environ:
         MOJO_RUNTIME_VARIABLES.MJR_AUTOMATION_POD = environ[MojoRuntimeAlias.MJR_AUTOMATION_POD]
+    
+    MOJO_RUNTIME_VARIABLES.MJR_BUILD_RELEASE = DefaultValue.NotSet
+    if MojoRuntimeAlias.MJR_BUILD_RELEASE in environ:
+        MOJO_RUNTIME_VARIABLES.MJR_BUILD_RELEASE = environ[MojoRuntimeAlias.MJR_BUILD_RELEASE]
+    ctx.insert(ContextPaths.BUILD_RELEASE, MOJO_RUNTIME_VARIABLES.MJR_BUILD_RELEASE)
 
     MOJO_RUNTIME_VARIABLES.MJR_BUILD_BRANCH = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_BUILD_BRANCH in environ:
         MOJO_RUNTIME_VARIABLES.MJR_BUILD_BRANCH = environ[MojoRuntimeAlias.MJR_BUILD_BRANCH]
+    ctx.insert(ContextPaths.BUILD_BRANCH, MOJO_RUNTIME_VARIABLES.MJR_BUILD_BRANCH)
 
     MOJO_RUNTIME_VARIABLES.MJR_BUILD_NAME = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_BUILD_NAME in environ:
         MOJO_RUNTIME_VARIABLES.MJR_BUILD_NAME = environ[MojoRuntimeAlias.MJR_BUILD_NAME]
+    ctx.insert(ContextPaths.BUILD_NAME, MOJO_RUNTIME_VARIABLES.MJR_BUILD_NAME)
 
     MOJO_RUNTIME_VARIABLES.MJR_BUILD_FLAVOR = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_BUILD_FLAVOR in environ:
         MOJO_RUNTIME_VARIABLES.MJR_BUILD_FLAVOR = environ[MojoRuntimeAlias.MJR_BUILD_FLAVOR]
+    ctx.insert(ContextPaths.BUILD_FLAVOR, MOJO_RUNTIME_VARIABLES.MJR_BUILD_FLAVOR)
 
     MOJO_RUNTIME_VARIABLES.MJR_BUILD_URL = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_BUILD_URL in environ:
         MOJO_RUNTIME_VARIABLES.MJR_BUILD_URL = environ[MojoRuntimeAlias.MJR_BUILD_URL]
+    ctx.insert(ContextPaths.BUILD_URL, MOJO_RUNTIME_VARIABLES.MJR_BUILD_URL)
 
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_DIRECTORY = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "config")
     if MojoRuntimeAlias.MJR_CONFIG_DIRECTORY in environ:

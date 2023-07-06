@@ -17,6 +17,17 @@ from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES
 
 ctx = Context()
 
+def override_build_release(release: str):
+    """
+        This override function provides a mechanism overriding the MJR_BUILD_BRANCH
+        variable and context configuration setting.
+
+        :param release: The name of the release associated with a build.
+    """
+    ctx.insert(ContextPaths.BUILD_RELEASE, release)
+    MOJO_RUNTIME_VARIABLES.MJR_BUILD_RELEASE = release
+    return
+
 def override_build_branch(branch_name: str):
     """
         This override function provides a mechanism overriding the MJR_BUILD_BRANCH
