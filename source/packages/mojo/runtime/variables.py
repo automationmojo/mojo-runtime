@@ -364,7 +364,7 @@ def resolve_runtime_variables():
     MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_INSTANCE = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_PIPELINE_INSTANCE in environ:
         MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_INSTANCE = environ[MojoRuntimeAlias.MJR_PIPELINE_INSTANCE]
-    ctx.insert(ContextPaths.MJR_PIPELINE_INSTANCE, MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_INSTANCE)
+    ctx.insert(ContextPaths.PIPELINE_INSTANCE, MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_INSTANCE)
 
     MOJO_RUNTIME_VARIABLES.MJR_JOB_ID = DefaultValue.NotSet
     if MojoRuntimeAlias.MJR_JOB_ID in environ:
