@@ -416,7 +416,7 @@ def override_pipeline_id(pipeline_id: str):
         This override function provides a mechanism overriding the MJR_PIPELINE_ID
         variable and context configuration setting.
 
-        :param runid: A uuid string that represents the instance of this automation run.
+        :param pipeline_id: A uuid string that represents a unique pipeline.
     """
     ctx.insert(ContextPaths.PIPELINE_ID, pipeline_id)
     MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_ID = pipeline_id
@@ -427,10 +427,21 @@ def override_pipeline_name(pipeline_name: str):
         This override function provides a mechanism overriding the MJR_PIPELINE_NAME
         variable and context configuration setting.
 
-        :param runid: A uuid string that represents the instance of this automation run.
+        :param pipeline_name: A string that contains the name for a given pipeline.
     """
     ctx.insert(ContextPaths.PIPELINE_NAME, pipeline_name)
     MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_NAME = pipeline_name
+    return
+
+def override_pipeline_name(pipeline_instance: str):
+    """
+        This override function provides a mechanism overriding the MJR_PIPELINE_NAME
+        variable and context configuration setting.
+
+        :param pipeline_instance: A uuid string that represents the instance of a given pipeline.
+    """
+    ctx.insert(ContextPaths.PIPELINE_INSTANCE, pipeline_instance)
+    MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_INSTANCE = pipeline_instance
     return
 
 def override_run_id(run_id: str):
