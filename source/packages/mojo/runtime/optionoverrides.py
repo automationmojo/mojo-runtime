@@ -12,7 +12,7 @@ from typing import List
 from datetime import datetime
 
 from mojo.xmods.xcollections.context import Context, ContextPaths
-from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES, resolve_config_files
+from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES
 
 ctx = Context()
@@ -110,17 +110,6 @@ def override_config_credentials_search_paths(search_paths: List[str]):
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS = search_paths
     return
 
-def override_config_credentials_resolve_files():
-    """
-        This override function provides a way to resolve configuration files after setting the
-        '_NAMES' and '_SEARCH_PATHS' variables
-    """
-    config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_NAMES
-    search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = resolve_config_files("credentials", config_names, search_paths)
-    ctx.insert(ContextPaths.CONFIG_CREDENTIAL_FILES,  MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES)
-    return
-
 def override_config_landscape_files(filenames: List[str]):
     """
         This override function provides a mechanism overriding the MJR_CONFIG_LANDSCAPE_FILES
@@ -157,17 +146,6 @@ def override_config_landscape_search_paths(search_paths: List[str]):
     """
     ctx.insert(ContextPaths.CONFIG_LANDSCAPE_SEARCH_PATHS, search_paths)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS = search_paths
-    return
-
-def override_config_landscape_resolve_files():
-    """
-        This override function provides a way to resolve configuration files after setting the
-        '_NAMES' and '_SEARCH_PATHS' variables
-    """
-    config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES
-    search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES = resolve_config_files("landscape", config_names, search_paths)
-    ctx.insert(ContextPaths.CONFIG_LANDSCAPE_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES)
     return
 
 def override_config_runtime_files(filenames: List[str]):
@@ -211,17 +189,6 @@ def override_config_runtime_search_paths(search_paths: List[str]):
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_SEARCH_PATHS = search_paths
     return
 
-def override_config_runtime_resolve_files():
-    """
-        This override function provides a way to resolve configuration files after setting the
-        '_NAMES' and '_SEARCH_PATHS' variables
-    """
-    config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_NAMES
-    search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_SEARCH_PATHS
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES = resolve_config_files("runtime", config_names, search_paths)
-    ctx.insert(ContextPaths.CONFIG_RUNTIME_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES)
-    return
-
 def override_config_topology_files(filenames: List[str]):
     """
         This override function provides a mechanism overriding the MJR_CONFIG_TOPOLOGY_FILES
@@ -261,17 +228,6 @@ def override_config_topology_search_paths(search_paths: List[str]):
     """
     ctx.insert(ContextPaths.CONFIG_TOPOLOGY_SEARCH_PATHS, search_paths)
     MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS = search_paths
-    return
-
-def override_config_topology_resolve_files():
-    """
-        This override function provides a way to resolve configuration files after setting the
-        '_NAMES' and '_SEARCH_PATHS' variables
-    """
-    config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_NAMES
-    search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES = resolve_config_files("topology", config_names, search_paths)
-    ctx.insert(ContextPaths.CONFIG_TOPOLOGY_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES)
     return
 
 def override_configuration_requirements(require_credentials: bool,
