@@ -130,10 +130,6 @@ def resolve_extension_factories():
 
 def initialize_runtime(*, name: Optional[str]=None,
                           logger_name: Optional[str]=None,
-                          use_credential: Optional[bool]=None,
-                          use_landscape: Optional[bool]=None,
-                          use_runtime: Optional[bool]=None,
-                          use_topology: Optional[bool]=None,
                           default_configuration: dict=None,
                           service_name: Optional[str]=None):
 
@@ -143,14 +139,6 @@ def initialize_runtime(*, name: Optional[str]=None,
         MOJO_RUNTIME_OVERRIDES.MJR_NAME = name
     if logger_name is not None:
         MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME = logger_name
-    if use_credential is not None:
-        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS = use_credential
-    if use_landscape is not None:
-        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE = use_landscape
-    if use_runtime is not None:
-        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME = use_runtime
-    if use_topology is not None:
-        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY = use_topology
     if default_configuration is not None:
         MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION = default_configuration
 

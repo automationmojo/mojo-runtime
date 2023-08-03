@@ -16,7 +16,7 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
-from typing import List
+from typing import List, Optional
 
 import os
 
@@ -147,7 +147,7 @@ def normalize_path_list(paths: str, sep: str=os.pathsep):
 
     return norm_paths
 
-def resolve_config_files(config_type: str, config_names: List[str], search_path: List[str]):
+def locate_config_files(config_type: str, config_names: List[str], search_path: List[str]):
     config_files = []
     missing_files = []
     checked_paths = []
@@ -190,11 +190,67 @@ def resolve_config_files(config_type: str, config_names: List[str], search_path:
 
     return config_files
 
+def resolve_configuration_files(
+    use_credential: Optional[bool]=None,
+    use_landscape: Optional[bool]=None,
+    use_runtime: Optional[bool]=None,
+    use_topology: Optional[bool]=None):
+
+    if use_credential is not None:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS = use_credential
+    if use_landscape is not None:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE = use_landscape
+    if use_runtime is not None:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME = use_runtime
+    if use_topology is not None:
+        MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY = use_topology
+
+    from mojo.xmods.xcollections.context import Context, ContextPaths
+
+    ctx = Context()
+
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = []
+    if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS:
+        config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_NAMES
+        if len(config_names) == 0:
+            config_names = ["credentials"]
+        search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = locate_config_files("credential", config_names, search_paths)
+    ctx.insert(ContextPaths.CONFIG_CREDENTIAL_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES)
+
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES = []
+    if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE:
+        config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES
+        if len(config_names) == 0:
+            config_names = ["default-landscape"]
+        search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES = locate_config_files("landscape", config_names, search_paths)
+    ctx.insert(ContextPaths.CONFIG_LANDSCAPE_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES)
+
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES = []
+    if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME:
+        config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_NAMES
+        if len(config_names) == 0:
+            config_names = ["default-runtime"]
+        search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_SEARCH_PATHS
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES = locate_config_files("runtime", config_names, search_paths)
+    ctx.insert(ContextPaths.CONFIG_RUNTIME_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES)
+
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES = []
+    if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY:
+        config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_NAMES
+        if len(config_names) == 0:
+            config_names = ["default-topology"]
+        search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS
+        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES = locate_config_files("topology", config_names, search_paths)
+    ctx.insert(ContextPaths.CONFIG_TOPOLOGY_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES)
+
+    return
+
 
 def resolve_runtime_variables():
 
     environ = os.environ
-
 
     from mojo.xmods.xcollections.context import Context, ContextPaths
 
@@ -297,42 +353,6 @@ def resolve_runtime_variables():
     if MojoRuntimeAlias.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS in environ:
         MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS = normalize_path_list(
             environ[MojoRuntimeAlias.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS])
-
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = []
-    if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS:
-        config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_NAMES
-        if len(config_names) == 0:
-            config_names = ["credentials"]
-        search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = resolve_config_files("credential", config_names, search_paths)
-    ctx.insert(ContextPaths.CONFIG_CREDENTIAL_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES)
-
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES = []
-    if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE:
-        config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_NAMES
-        if len(config_names) == 0:
-            config_names = ["default-landscape"]
-        search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES = resolve_config_files("landscape", config_names, search_paths)
-    ctx.insert(ContextPaths.CONFIG_LANDSCAPE_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES)
-
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES = []
-    if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME:
-        config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_NAMES
-        if len(config_names) == 0:
-            config_names = ["default-runtime"]
-        search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_SEARCH_PATHS
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES = resolve_config_files("runtime", config_names, search_paths)
-    ctx.insert(ContextPaths.CONFIG_RUNTIME_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES)
-
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES = []
-    if MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY:
-        config_names = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_NAMES
-        if len(config_names) == 0:
-            config_names = ["default-topology"]
-        search_paths = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS
-        MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES = resolve_config_files("topology", config_names, search_paths)
-    ctx.insert(ContextPaths.CONFIG_TOPOLOGY_FILES, MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES)
 
     MOJO_RUNTIME_VARIABLES.MJR_DEBUG_BREAKPOINTS = None
     if MojoRuntimeAlias.MJR_DEBUG_BREAKPOINTS in environ:
