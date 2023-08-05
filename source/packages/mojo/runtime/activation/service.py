@@ -49,13 +49,13 @@ if service_name is None:
 
 MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE = LogLevel.INFO
 MOJO_RUNTIME_VARIABLES.MJR_SERVICE_NAME = service_name
-MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.Service
+MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.Service.value
 MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = "~/{}/services/{}".format(MOJO_RUNTIME_VARIABLES.MJR_NAME, service_name)
 
 # For console activation we don't want to log to the console and we want
 # to point the logs to a different output folder
 os.environ[MojoRuntimeAlias.MJR_LOG_LEVEL_CONSOLE] = str(MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE)
-os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = str(MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
+os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE
 os.environ[MojoRuntimeAlias.MJR_OUTPUT_DIRECTORY] = str(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY)
 
 import mojo.runtime.activation.base # pylint: disable=unused-import,wrong-import-position

@@ -106,7 +106,7 @@ class MOJO_RUNTIME_VARIABLES:
     MJR_PIPELINE_INSTANCE = DefaultValue.NotSet
 
     MJR_JOB_ID = DefaultValue.NotSet
-    MJR_JOB_TYPE = JobType.Unknown
+    MJR_JOB_TYPE = JobType.Unknown.value
     MJR_JOB_INITIATOR = DefaultValue.NotSet
     MJR_JOB_LABEL = DefaultValue.NotSet
     MJR_JOB_NAME = DefaultValue.NotSet
@@ -411,7 +411,7 @@ def resolve_runtime_variables():
         MOJO_RUNTIME_VARIABLES.MJR_JOB_OWNER = environ[MojoRuntimeAlias.MJR_JOB_OWNER]
     ctx.insert(ContextPaths.JOB_OWNER, MOJO_RUNTIME_VARIABLES.MJR_JOB_OWNER)
 
-    MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.Unknown
+    MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.Unknown.value
     if MojoRuntimeAlias.MJR_JOB_TYPE in environ:
         MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = environ[MojoRuntimeAlias.MJR_JOB_TYPE]
     ctx.insert(ContextPaths.JOB_TYPE, MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
