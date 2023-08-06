@@ -98,7 +98,7 @@ from mojo.runtime.variables import (
 
 from mojo.xmods.xlogging.levels import LOG_LEVEL_NAMES
 from mojo.xmods.xcollections.context import ContextPaths
-from mojo.xmods.xdatetime import FORMAT_DATETIME
+from mojo.xmods.xdatetime import DATETIME_FORMAT_FILESYSTEM
 
 # Activation Step - 4: Load the user and runtime configuration and add it to the CONFIGURATION_MAP
 # 'ChainMap' so the runtime settings can take precedence over the user default settings.
@@ -162,7 +162,7 @@ ctx.insert(ContextPaths.LOGGING_LEVEL_LOGFILE, logfile_level)
 
 jobtype = ctx.lookup(ContextPaths.JOB_TYPE, default=MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
 
-starttime_name = MOJO_RUNTIME_VARIABLES.MJR_STARTTIME.strftime(FORMAT_DATETIME)
+starttime_name = MOJO_RUNTIME_VARIABLES.MJR_STARTTIME.strftime(DATETIME_FORMAT_FILESYSTEM)
 
 fill_dict = {
     "starttime": starttime_name
