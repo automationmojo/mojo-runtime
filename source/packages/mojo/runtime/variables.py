@@ -26,7 +26,9 @@ from uuid import uuid4
 
 from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES, MojoRuntimeAlias
 from mojo.xmods.exceptions import ConfigurationError, SemanticError
-from mojo.xmods.xdatetime import parse_datetime
+from mojo.xmods.xdatetime import (
+    parse_datetime, DATETIME_FORMAT_FILESYSTEM, DATETIME_FORMAT_TIMESTAMP
+)
 from mojo.xmods.xlogging.levels import LogLevel
 
 class ActivationProfile(str, Enum):
@@ -257,7 +259,12 @@ def resolve_runtime_variables():
     ctx = Context()
 
     if MojoRuntimeAlias.MJR_STARTTIME in environ:
-        starttime = parse_datetime(environ[MojoRuntimeAlias.MJR_STARTTIME])
+        passedVal = environ[MojoRuntimeAlias.MJR_STARTTIME]
+        starttime = None
+        if passedVal.find(":") > -1:
+            starttime = parse_datetime(passedVal, DATETIME_FORMAT_TIMESTAMP)
+        else:
+            starttime = parse_datetime(passedVal, DATETIME_FORMAT_FILESYSTEM)
         MOJO_RUNTIME_VARIABLES.MJR_STARTTIME = starttime
 
     MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY = os.path.expanduser(
