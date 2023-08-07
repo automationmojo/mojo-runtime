@@ -1,7 +1,7 @@
 
 import unittest
 
-from mojo.xmods.xdatetime import parse_datetime
+from mojo.xmods.xdatetime import parse_datetime, DATETIME_FORMAT_FILESYSTEM
 
 class TestStartupTestRun(unittest.TestCase):
 
@@ -27,7 +27,7 @@ class TestStartupTestRun(unittest.TestCase):
         assert other_parts[0] == "results", "Next directory should have been 'results'."
         assert other_parts[1] == "testresults", "Next directory should have been 'testresults'."
 
-        dtcomp = parse_datetime(other_parts[2])
+        dtcomp = parse_datetime(other_parts[2], datetime_format=DATETIME_FORMAT_FILESYSTEM)
 
         return
 
