@@ -25,7 +25,7 @@ from enum import Enum
 from uuid import uuid4
 
 from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES, MojoRuntimeAlias
-from mojo.xmods.exceptions import ConfigurationError, SemanticError
+from mojo.errors.exceptions import ConfigurationError, SemanticError
 from mojo.xmods.xdatetime import (
     parse_datetime, DATETIME_FORMAT_FILESYSTEM, DATETIME_FORMAT_TIMESTAMP
 )

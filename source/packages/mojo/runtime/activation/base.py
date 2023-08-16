@@ -21,7 +21,7 @@ import os
 import sys
 import uuid
 
-from mojo.xmods.exceptions import (
+from mojo.errors.exceptions import (
     ConfigurationError,
     SemanticError
 )
