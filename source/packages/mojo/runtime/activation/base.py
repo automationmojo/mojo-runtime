@@ -25,7 +25,7 @@ from mojo.errors.exceptions import (
     ConfigurationError,
     SemanticError
 )
-from mojo.xmods.xtraceback import (
+from mojo.errors.xtraceback import (
     TRACEBACK_CONFIG,
     VALID_MEMBER_TRACE_POLICY,
 )
