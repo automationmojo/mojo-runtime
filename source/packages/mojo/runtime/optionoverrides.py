@@ -11,11 +11,16 @@ from typing import List
 
 from datetime import datetime
 
-from mojo.xmods.xcollections.context import Context, ContextPaths
+from mojo.collections.context import ContextPaths
+from mojo.collections.wellknown import ContextSingleton
+
+
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES
 
-ctx = Context()
+
+ctx = ContextSingleton()
+
 
 def override_build_release(release: str):
     """
@@ -72,18 +77,6 @@ def override_build_url(build_url: str):
     MOJO_RUNTIME_VARIABLES.MJR_BUILD_URL = build_url
     return
 
-def override_config_credential_files(filenames: List[str]):
-    """
-        This override function provides a mechanism overriding the MJR_CONFIG_CREDENTIAL_FILES
-        variable and context configuration setting.
-
-        :param filenames: A list of full paths to the files to set as the credentials files.
-    """
-    ctx.insert(ContextPaths.CONFIG_CREDENTIAL_FILES, filenames)
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_FILES = filenames
-    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS = True
-    return
-
 def override_config_credentials_names(credential_names: List[str]):
     """
         This override function provides a mechanism overriding the MJR_CONFIG_CREDENTIALS_NAMES
@@ -96,30 +89,18 @@ def override_config_credentials_names(credential_names: List[str]):
     MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_CREDENTIALS = True
     return
 
-def override_config_credentials_search_paths(search_paths: List[str]):
+def override_config_credentials_sources(sources: List[str]):
     """
-        This override function provides a mechanism overriding the MJR_CONFIG_CREDENTIALS_SEARCH_PATHS
+        This override function provides a mechanism overriding the MJR_CONFIG_CREDENTIALS_SOURCES
         variable and context configuration setting.
 
-        :param search_paths: The paths of to use as the credential config search paths.
+        :param sources: The uri(s) of to use as the credential config search uri(s).
 
         ..note: If this override method is used, you must call the 'fixme' method in order
                 to re-resolve the list of landscape files.
     """
-    ctx.insert(ContextPaths.CONFIG_CREDENTIAL_SEARCH_PATHS, search_paths)
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SEARCH_PATHS = search_paths
-    return
-
-def override_config_landscape_files(filenames: List[str]):
-    """
-        This override function provides a mechanism overriding the MJR_CONFIG_LANDSCAPE_FILES
-        variable and context configuration setting.
-
-        :param filenames: A list of full paths to the files to set as the landscape files.
-    """
-    ctx.insert(ContextPaths.CONFIG_LANDSCAPE_FILES, filenames)
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES = filenames
-    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE = True
+    ctx.insert(ContextPaths.CONFIG_CREDENTIAL_SOURCES, sources)
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_CREDENTIAL_SOURCES = sources
     return
 
 def override_config_landscape_names(landscape_names: List[str]):
@@ -134,30 +115,18 @@ def override_config_landscape_names(landscape_names: List[str]):
     MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_LANDSCAPE = True
     return
 
-def override_config_landscape_search_paths(search_paths: List[str]):
+def override_config_landscape_sources(sources: List[str]):
     """
-        This override function provides a mechanism overriding the MJR_CONFIG_LANDSCAPE_SEARCH_PATHS
+        This override function provides a mechanism overriding the MJR_CONFIG_LANDSCAPE_SOURCES
         variable and context configuration setting.
 
-        :param search_paths: The paths of to use as the landscape config search paths.
+        :param sources: The uri(s) of to use as the landscape config search uri(s).
 
         ..note: If this override method is used, you must call the 'fixme' method in order
                 to re-resolve the list of landscape files.
     """
-    ctx.insert(ContextPaths.CONFIG_LANDSCAPE_SEARCH_PATHS, search_paths)
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SEARCH_PATHS = search_paths
-    return
-
-def override_config_runtime_files(filenames: List[str]):
-    """
-        This override function provides a mechanism overriding the MJR_CONFIG_RUNTIME_FILES
-        variable and context configuration setting.
-
-        :param filenames: The full path to the files to use to create the runtime configuration.
-    """
-    ctx.insert(ContextPaths.CONFIG_RUNTIME_FILES, filenames)
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES = filenames
-    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME = True
+    ctx.insert(ContextPaths.CONFIG_LANDSCAPE_SOURCES, sources)
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_SOURCES = sources
     return
 
 def override_config_runtime_names(runtime_names: List[str]):
@@ -175,30 +144,18 @@ def override_config_runtime_names(runtime_names: List[str]):
     MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_RUNTIME = True
     return
 
-def override_config_runtime_search_paths(search_paths: List[str]):
+def override_config_runtime_sources(sources: List[str]):
     """
-        This override function provides a mechanism overriding the MJR_CONFIG_RUNTIME_SEARCH_PATHS
+        This override function provides a mechanism overriding the MJR_CONFIG_RUNTIME_SOURCES
         variable and context configuration setting.
 
-        :param search_paths: The paths of to use as the runtime config search paths.
+        :param sources: The uri(s) of to use as the runtime config search uri(s).
 
         ..note: If this override method is used, you must call the 'fixme' method in order
                 to re-resolve the list of runtime files.
     """
-    ctx.insert(ContextPaths.CONFIG_RUNTIME_SEARCH_PATHS, search_paths)
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_SEARCH_PATHS = search_paths
-    return
-
-def override_config_topology_files(filenames: List[str]):
-    """
-        This override function provides a mechanism overriding the MJR_CONFIG_TOPOLOGY_FILES
-        variable and context configuration setting.
-
-        :param filenames: The full path to the files to use to create the runtime configuration.
-    """
-    ctx.insert(ContextPaths.CONFIG_TOPOLOGY_FILES, filenames)
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES = filenames
-    MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY = True
+    ctx.insert(ContextPaths.CONFIG_RUNTIME_SOURCES, sources)
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_SOURCES = sources
     return
 
 def override_config_topology_names(topology_names: List[str]):
@@ -216,18 +173,18 @@ def override_config_topology_names(topology_names: List[str]):
     MOJO_RUNTIME_OVERRIDES.MJR_CONFIG_USE_TOPOLOGY = True
     return
 
-def override_config_topology_search_paths(search_paths: List[str]):
+def override_config_topology_sources(sources: List[str]):
     """
-        This override function provides a mechanism overriding the MJR_CONFIG_TOPOLOGY_SEARCH_PATHS
+        This override function provides a mechanism overriding the MJR_CONFIG_TOPOLOGY_SOURCES
         variable and context configuration setting.
 
-        :param search_paths: The paths of to use as the topology config search paths.
+        :param sources: The uri(s) of to use as the topology config search uri(s).
 
         ..note: If this override method is used, you must call the 'fixme' method in order
                 to re-resolve the list of topology files.
     """
-    ctx.insert(ContextPaths.CONFIG_TOPOLOGY_SEARCH_PATHS, search_paths)
-    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_SEARCH_PATHS = search_paths
+    ctx.insert(ContextPaths.CONFIG_TOPOLOGY_SOURCES, sources)
+    MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_SOURCES = sources
     return
 
 def override_configuration_requirements(require_credentials: bool,

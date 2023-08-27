@@ -83,7 +83,7 @@ from mojo.runtime.configuration import CONFIGURATION_MAP
 # Activation Step - 2: Force the global shared context to load, we want this to happen as early
 # as possible because we don't want to every replace its reference or invalidate
 # any references to it that someone might have acquired.
-from mojo.xmods.xcollections.context import Context # pylint: disable=wrong-import-position
+from mojo.collections.context import Context # pylint: disable=wrong-import-position
 
 ctx = Context()
 
@@ -97,7 +97,7 @@ from mojo.runtime.variables import (
 )
 
 from mojo.xmods.xlogging.levels import LOG_LEVEL_NAMES
-from mojo.xmods.xcollections.context import ContextPaths
+from mojo.collections.context import ContextPaths
 from mojo.xmods.xdatetime import DATETIME_FORMAT_FILESYSTEM
 
 # Activation Step - 4: Load the user and runtime configuration and add it to the CONFIGURATION_MAP

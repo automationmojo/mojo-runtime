@@ -23,7 +23,7 @@ from typing import List, Optional
 import os
 import tempfile
 
-from mojo.xmods.xcollections.context import Context, ContextPaths
+from mojo.collections.context import Context, ContextPaths
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 
 DIR_DIAGNOSTICS_DIRECTORY = None
