@@ -25,7 +25,7 @@ from logging.handlers import RotatingFileHandler
 from mojo.errors.exceptions import SemanticError
 from mojo.xmods.xlogging.levels import LogLevel
 
-from mojo.runtime.initialize import MojoRuntimeAlias
+from mojo.runtime.initialize import MOJO_RUNTIME_VARNAMES
 from mojo.runtime.variables import ActivationProfile, JobType, MOJO_RUNTIME_VARIABLES
 
 __activation_profile__ = ActivationProfile.Console
@@ -39,7 +39,7 @@ if MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE is not None:
 
 MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE = ActivationProfile.Console
 MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.Console.value
-os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE
+os.environ[MOJO_RUNTIME_VARNAMES.MJR_JOB_TYPE] = MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE
 
 temp_output_dir = tempfile.mkdtemp()
 MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = temp_output_dir
@@ -62,9 +62,9 @@ if MOJO_RUNTIME_VARIABLES.MJR_INTERACTIVE_CONSOLE:
 
     # For console activation we don't want to log to the console and we want
     # to point the logs to a different output folder
-    os.environ[MojoRuntimeAlias.MJR_LOG_LEVEL_CONSOLE] = str(MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE)
-    os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE
-    os.environ[MojoRuntimeAlias.MJR_OUTPUT_DIRECTORY] = str(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY)
+    os.environ[MOJO_RUNTIME_VARNAMES.MJR_LOG_LEVEL_CONSOLE] = str(MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE)
+    os.environ[MOJO_RUNTIME_VARNAMES.MJR_JOB_TYPE] = MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE
+    os.environ[MOJO_RUNTIME_VARNAMES.MJR_OUTPUT_DIRECTORY] = str(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY)
 
     import mojo.runtime.activation.base # pylint: disable=unused-import,wrong-import-position
 

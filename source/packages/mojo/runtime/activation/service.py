@@ -23,7 +23,7 @@ from logging.handlers import RotatingFileHandler
 from mojo.xmods.xlogging.levels import LogLevel
 from mojo.errors.exceptions import ConfigurationError, SemanticError
 
-from mojo.runtime.initialize import MojoRuntimeAlias
+from mojo.runtime.initialize import MOJO_RUNTIME_VARNAMES
 from mojo.runtime.variables import ActivationProfile, JobType, MOJO_RUNTIME_VARIABLES
 
 __activation_profile__ = ActivationProfile.Service
@@ -40,12 +40,12 @@ MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE = ActivationProfile.Service
 service_name = MOJO_RUNTIME_VARIABLES.MJR_SERVICE_NAME
 
 if service_name is None:
-    if MojoRuntimeAlias.MJR_SERVICE_NAME not in os.environ:
+    if MOJO_RUNTIME_VARNAMES.MJR_SERVICE_NAME not in os.environ:
         errmsg = "To use the Mojo Runtime to provide a service, you must " \
-                "set the '{}' environment variable.".format(MojoRuntimeAlias.MJR_SERVICE_NAME)
+                "set the '{}' environment variable.".format(MOJO_RUNTIME_VARNAMES.MJR_SERVICE_NAME)
         raise ConfigurationError(errmsg)
 
-    service_name = os.environ[MojoRuntimeAlias.MJR_SERVICE_NAME]
+    service_name = os.environ[MOJO_RUNTIME_VARNAMES.MJR_SERVICE_NAME]
 
 MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE = LogLevel.INFO
 MOJO_RUNTIME_VARIABLES.MJR_SERVICE_NAME = service_name
@@ -54,9 +54,9 @@ MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = "~/{}/services/{}".format(MOJO_RUN
 
 # For console activation we don't want to log to the console and we want
 # to point the logs to a different output folder
-os.environ[MojoRuntimeAlias.MJR_LOG_LEVEL_CONSOLE] = str(MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE)
-os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE
-os.environ[MojoRuntimeAlias.MJR_OUTPUT_DIRECTORY] = str(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY)
+os.environ[MOJO_RUNTIME_VARNAMES.MJR_LOG_LEVEL_CONSOLE] = str(MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE)
+os.environ[MOJO_RUNTIME_VARNAMES.MJR_JOB_TYPE] = MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE
+os.environ[MOJO_RUNTIME_VARNAMES.MJR_OUTPUT_DIRECTORY] = str(MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY)
 
 import mojo.runtime.activation.base # pylint: disable=unused-import,wrong-import-position
 

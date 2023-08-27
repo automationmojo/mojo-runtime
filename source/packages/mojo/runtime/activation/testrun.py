@@ -19,7 +19,7 @@ __license__ = "MIT"
 import os
 
 from mojo.runtime.variables import ActivationProfile, MOJO_RUNTIME_VARIABLES, JobType
-from mojo.runtime.initialize import MojoRuntimeAlias
+from mojo.runtime.initialize import MOJO_RUNTIME_VARNAMES
 
 __activation_profile__ = ActivationProfile.TestRun
 
@@ -34,7 +34,7 @@ MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE = ActivationProfile.TestRun
 
 MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.TestRun.value
 
-os.environ[MojoRuntimeAlias.MJR_JOB_TYPE] = str(MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
+os.environ[MOJO_RUNTIME_VARNAMES.MJR_JOB_TYPE] = str(MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
 
 import mojo.runtime.activation.base
 

@@ -23,7 +23,9 @@ from typing import List, Optional
 import os
 import tempfile
 
-from mojo.collections.context import Context, ContextPaths
+from mojo.collections.context import ContextPaths
+from mojo.collections.wellknown import ContextSingleton
+
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 
 DIR_DIAGNOSTICS_DIRECTORY = None
@@ -132,7 +134,7 @@ def get_files_for_credentials() -> str:
         Returns the paths to the credentials files.
     """
 
-    ctx = Context()
+    ctx = ContextSingleton()
     files = ctx.lookup(ContextPaths.CONFIG_CREDENTIAL_FILES)
 
     return files
@@ -142,7 +144,7 @@ def get_files_for_landscape() -> str:
         Returns the paths to the landscape files.
     """
 
-    ctx = Context()
+    ctx = ContextSingleton()
     files = ctx.lookup(ContextPaths.CONFIG_LANDSCAPE_FILES)
 
     return files
@@ -152,7 +154,7 @@ def get_files_for_runtime() -> str:
         Returns the paths to the landscape files.
     """
 
-    ctx = Context()
+    ctx = ContextSingleton()
     files = ctx.lookup(ContextPaths.CONFIG_RUNTIME_FILES)
 
     return files
@@ -162,7 +164,7 @@ def get_files_for_topology() -> str:
         Returns the paths to the topology files.
     """
 
-    ctx = Context()
+    ctx = ContextSingleton()
     files = get_expanded_path(ctx.lookup(ContextPaths.CONFIG_TOPOLOGY_FILES))
 
     return files
@@ -191,7 +193,7 @@ def get_path_for_output(create=True) -> str:
     global DIR_RESULTS_DIRECTORY
 
     if DIR_RESULTS_DIRECTORY is None:
-        ctx = Context()
+        ctx = ContextSingleton()
 
         DIR_RESULTS_DIRECTORY = get_expanded_path(ctx.lookup(ContextPaths.OUTPUT_DIRECTORY))
         if create and not os.path.exists(DIR_RESULTS_DIRECTORY):
@@ -237,7 +239,7 @@ def get_path_for_testresults() -> str:
     global DIR_TESTRESULTS_DIRECTORY
 
     if DIR_TESTRESULTS_DIRECTORY is None:
-        ctx = Context()
+        ctx = ContextSingleton()
         configuration = ctx.lookup("/configuration")
 
         tr_dir = configuration.lookup("/paths/testresults")
@@ -255,7 +257,7 @@ def get_summary_html_template_source() -> str:
 
         :returns: The path to the html summary template
     """
-    ctx = Context()
+    ctx = ContextSingleton()
 
     template = ctx.lookup(ContextPaths.FILE_RESULTS_TEMPLATE)
 
@@ -269,7 +271,7 @@ def get_summary_static_resource_dest_dir(create=True) -> str:
     """
         Returns the path where the static resources for test summaries should be published.
     """
-    ctx = Context()
+    ctx = ContextSingleton()
     res_dir = ctx.lookup(ContextPaths.DIR_RESULTS_RESOURCE_DEST)
 
     if create and not os.path.exists(res_dir):
@@ -281,7 +283,7 @@ def get_summary_static_resource_src_dir() -> str:
     """
         Returns the path that is the source path for the test summary static resources.
     """
-    ctx = Context()
+    ctx = ContextSingleton()
     res_dir = ctx.lookup(ContextPaths.DIR_RESULTS_RESOURCE_SRC)
 
     return res_dir
