@@ -595,14 +595,14 @@ files = [
 
 [[package]]
 name = "mojo-collections"
-version = "0.0.9"
+version = "0.0.10"
 description = "Mojo Collections Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_collections-0.0.9-py3-none-any.whl", hash = "sha256:f87dce8c9f38d31c67c46b6e45ed13180a825d021fac05ac86aa6c1055384ac3"},
-    {file = "mojo_collections-0.0.9.tar.gz", hash = "sha256:4dfefce60a634a2dbd837bef870732055cebd05a4b01de79aa41b20365c2af79"},
+    {file = "mojo_collections-0.0.10-py3-none-any.whl", hash = "sha256:c973f9670a50ce818fe8e6993c16b01936dcb33e3893285dfca0b0a6b4c5bf6c"},
+    {file = "mojo_collections-0.0.10.tar.gz", hash = "sha256:c288d75f28416f65d6880d2fd980469308562285ad75051921ee32ea588945b5"},
 ]
 
 [[package]]
@@ -652,19 +652,20 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.74"
+version = "0.0.75"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.74-py3-none-any.whl", hash = "sha256:867a90c6fac347b5262605635c28005ac7b087786cf3e8083dc26170ad128c60"},
-    {file = "mojo_xmodules-0.0.74.tar.gz", hash = "sha256:670495864b4f95f847fdd2e575f594e85a155e80ef2c5fdd301b885d1e4a6f2f"},
+    {file = "mojo_xmodules-0.0.75-py3-none-any.whl", hash = "sha256:d4b9baa0669aac7b8e4218f5ba20102f0bf69fb82613e1f53d7ead7536a9c843"},
+    {file = "mojo_xmodules-0.0.75.tar.gz", hash = "sha256:d73a006272b6b46bb14ce3a4bd7634c75ac14264cd298cd97f4299220093bfb7"},
 ]
 
 [package.dependencies]
 click = ">=8.1.5,<9.0.0"
 debugpy = ">=1.6.6,<2.0.0"
+mojo-collections = ">=0.0.10,<0.1.0"
 mojo-config = ">=0.0.15,<0.1.0"
 mojo-errors = ">=0.0.1,<1.0.0"
 mojo-waiting = ">=1.0.3,<2.0.0"
@@ -1096,4 +1097,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "756aee559bd6692230fded635d63aa7d1ba6f126202b6610746443618b6eadf0"
+content-hash = "cd80137f1782198a12845a517af286b6d646b0f5511c285a57de8a16fbcd2656"
