@@ -1,10 +1,11 @@
 
 import os
 
+from mojo.collections.wellknown import ContextSingleton
+from mojo.collections.context import ContextPaths
+
 from mojo.xmods.landscaping.landscapeparameters import LandscapeActivationParams
 from mojo.xmods.landscaping.landscape import startup_landscape
-
-from mojo.collections.context import Context, ContextPaths
 
 from mojo.runtime.initialize import initialize_runtime
 
@@ -32,9 +33,7 @@ def landscape_example_main():
         os.path.join(landscapes_dir, "default-landscape.yaml")
     ]
 
-    ctx = Context()
-    ctx.insert(ContextPaths.CONFIG_CREDENTIAL_FILES, credential_files)
-    ctx.insert(ContextPaths.CONFIG_LANDSCAPE_FILES, landscape_files)
+    ctx = ContextSingleton()
     ctx.insert(ContextPaths.OUTPUT_DIRECTORY, output_dir)
 
     activation_params = LandscapeActivationParams()
