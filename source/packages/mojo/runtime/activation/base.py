@@ -76,16 +76,16 @@ elif MOJO_RUNTIME_OVERRIDES.MJR_NAME is None:
 # The framework has a special activation module :module:`akit.environment.console` that is
 # used when bringing up the test framework in a console.  This special method redirects
 
-# Activation Step - 1: Force the CONFIGURATION_MAP global variable into existance to set
-# its reference
-from mojo.runtime.configuration import CONFIGURATION_MAP
-
-# Activation Step - 2: Force the global shared context to load, we want this to happen as early
+# Activation Step - 1: Force the global shared context to load, we want this to happen as early
 # as possible because we don't want to every replace its reference or invalidate
 # any references to it that someone might have acquired.
-from mojo.collections.context import Context # pylint: disable=wrong-import-position
+from mojo.collections.context import ContextPaths
+from mojo.collections.wellknown import ContextSingleton # pylint: disable=wrong-import-position
 
-ctx = Context()
+ctx = ContextSingleton()
+
+from mojo.xmods.xlogging.levels import LOG_LEVEL_NAMES
+from mojo.xmods.xdatetime import DATETIME_FORMAT_FILESYSTEM
 
 # Activation Step - 3: Process the environment variable overrides for any of the AKIT configuration
 # variables. This needs to happen before we load or create an initial user configuration
@@ -95,15 +95,6 @@ from mojo.runtime.variables import (
     DefaultValue,
     JobType
 )
-
-from mojo.xmods.xlogging.levels import LOG_LEVEL_NAMES
-from mojo.collections.context import ContextPaths
-from mojo.xmods.xdatetime import DATETIME_FORMAT_FILESYSTEM
-
-# Activation Step - 4: Load the user and runtime configuration and add it to the CONFIGURATION_MAP
-# 'ChainMap' so the runtime settings can take precedence over the user default settings.
-from mojo.runtime.configuration import load_user_configuration
-
 
 DEFAULT_PATH_EXPANSIONS = [
     os.path.expanduser,
@@ -117,11 +108,6 @@ def expand_path(path_in, expansions=DEFAULT_PATH_EXPANSIONS):
         path_out = expansion_func(path_out)
 
     return path_out
-
-
-# The runtime configuration should be first so it
-# has the highest priority.
-runtime_config = load_user_configuration()
 
 # We set all the variables for config file options from the environment
 # we just loaded, these might get overridden late but that is ok

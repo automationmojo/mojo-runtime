@@ -135,7 +135,7 @@ def get_files_for_credentials() -> str:
     """
 
     ctx = ContextSingleton()
-    files = ctx.lookup(ContextPaths.CONFIG_CREDENTIAL_FILES)
+    files = ctx.lookup(ContextPaths.CONFIG_CREDENTIAL_URIS)
 
     return files
 
@@ -145,7 +145,7 @@ def get_files_for_landscape() -> str:
     """
 
     ctx = ContextSingleton()
-    files = ctx.lookup(ContextPaths.CONFIG_LANDSCAPE_FILES)
+    files = ctx.lookup(ContextPaths.CONFIG_LANDSCAPE_URIS)
 
     return files
 
@@ -155,7 +155,7 @@ def get_files_for_runtime() -> str:
     """
 
     ctx = ContextSingleton()
-    files = ctx.lookup(ContextPaths.CONFIG_RUNTIME_FILES)
+    files = ctx.lookup(ContextPaths.CONFIG_RUNTIME_URIS)
 
     return files
 
@@ -165,7 +165,7 @@ def get_files_for_topology() -> str:
     """
 
     ctx = ContextSingleton()
-    files = get_expanded_path(ctx.lookup(ContextPaths.CONFIG_TOPOLOGY_FILES))
+    files = get_expanded_path(ctx.lookup(ContextPaths.CONFIG_TOPOLOGY_URIS))
 
     return files
 

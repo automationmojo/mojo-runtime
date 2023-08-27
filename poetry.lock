@@ -607,14 +607,14 @@ files = [
 
 [[package]]
 name = "mojo-config"
-version = "0.0.11"
+version = "0.0.12"
 description = "Automation Mojo Configuration Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_config-0.0.11-py3-none-any.whl", hash = "sha256:9116313b9666f7c7c4b88c2a76a74be2dfbeaf6fef3aebc4fcb81a798a301bb5"},
-    {file = "mojo_config-0.0.11.tar.gz", hash = "sha256:ac95b2506c115da9d3c6d2ec0c2926bd1490d600bfd791d44e496a7db85ee396"},
+    {file = "mojo_config-0.0.12-py3-none-any.whl", hash = "sha256:276504a97723e135281b206be7cd68a77d7522c2fa0c827bcdf993784e50ad5c"},
+    {file = "mojo_config-0.0.12.tar.gz", hash = "sha256:7248c9652a4379e155c76b63a49a64cf9d4240ecd9bc72112e1977ccce584e1f"},
 ]
 
 [package.dependencies]
