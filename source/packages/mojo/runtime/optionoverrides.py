@@ -11,7 +11,7 @@ from typing import List
 
 from datetime import datetime
 
-from mojo.collections.context import ContextPaths
+from mojo.collections.contextpaths import ContextPaths
 from mojo.collections.wellknown import ContextSingleton
 
 

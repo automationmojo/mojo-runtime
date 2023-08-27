@@ -2,7 +2,7 @@
 import os
 
 from mojo.collections.wellknown import ContextSingleton
-from mojo.collections.context import ContextPaths
+from mojo.collections.contextpaths import ContextPaths
 
 from mojo.xmods.landscaping.landscapeparameters import LandscapeActivationParams
 from mojo.xmods.landscaping.landscape import startup_landscape

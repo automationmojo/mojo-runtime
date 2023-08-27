@@ -79,7 +79,7 @@ elif MOJO_RUNTIME_OVERRIDES.MJR_NAME is None:
 # Activation Step - 1: Force the global shared context to load, we want this to happen as early
 # as possible because we don't want to every replace its reference or invalidate
 # any references to it that someone might have acquired.
-from mojo.collections.context import ContextPaths
+from mojo.collections.contextpaths import ContextPaths
 from mojo.collections.wellknown import ContextSingleton # pylint: disable=wrong-import-position
 
 ctx = ContextSingleton()
@@ -175,27 +175,28 @@ else:
         outdir_template = configuration.lookup("/path-templates/console-results", default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         outdir_full = expand_path(filled_dir_results)
-        configuration.insert("/paths/results/console", outdir_full)
+        ctx.insert(ContextPaths.RESULT_PATH_FOR_CONSOLE, outdir_full)
 
     elif jobtype == JobType.Orchestration:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "orchestration", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/orchestration-results", default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         outdir_full = expand_path(filled_dir_results)
-        configuration.insert("/paths/results/orchestration", outdir_full)
+        ctx.insert(ContextPaths.RESULT_PATH_FOR_ORCHESTRATION, outdir_full)
 
     elif jobtype == JobType.Service:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "service", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/service-logs", default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
-        configuration.insert("/paths/results/service", filled_dir_results)
+        outdir_full = expand_path(filled_dir_results)
+        ctx.insert(ContextPaths.RESULT_PATH_FOR_SERVICES, outdir_full)
 
     else:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "testresults", "%(starttime)s")
         outdir_template = configuration.lookup("/path-templates/test-results", default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         outdir_full = expand_path(filled_dir_results)
-        configuration.insert("/paths/testresults", outdir_full)
+        ctx.insert(ContextPaths.RESULT_PATH_FOR_TESTS, outdir_full)
 
 ctx.insert(ContextPaths.OUTPUT_DIRECTORY, outdir_full)
 

@@ -23,7 +23,7 @@ from typing import List, Optional
 import os
 import tempfile
 
-from mojo.collections.context import ContextPaths
+from mojo.collections.contextpaths import ContextPaths
 from mojo.collections.wellknown import ContextSingleton
 
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES

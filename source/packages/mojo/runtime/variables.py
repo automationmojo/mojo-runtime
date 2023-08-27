@@ -25,7 +25,7 @@ from datetime import datetime
 from enum import Enum
 from uuid import uuid4
 
-from mojo.collections.context import ContextPaths
+from mojo.collections.contextpaths import ContextPaths
 from mojo.collections.wellknown import ContextSingleton
 
 from mojo.config.variables import MOJO_CONFIG_VARIABLES, resolve_configuration_variables
