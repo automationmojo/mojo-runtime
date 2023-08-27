@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "mojo-runtime"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
-version = "0.0.68"
+version = "0.0.69"
 authors = [
     "Myron Walker <myron.walker@gmail.com>"
 ]
@@ -23,10 +23,10 @@ repository = "https://github.com/automationmojo/mojo-runtime"
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
 coverage = "^7.0.4"
-mojo-xmodules = ">=0.0.75 <0.1.0"
+mojo-xmodules = ">=0.0.77 <0.1.0"
 mojo-errors = ">=0.0.1 <0.1.0"
 mojo-collections = ">=0.0.10 <0.1.0"
-mojo-config = ">=0.0.15 <0.1.0"
+mojo-config = ">=0.0.18 <0.1.0"
 
 [tool.poetry.group.dev.dependencies]
 myst-parser = "^0.18.1"
