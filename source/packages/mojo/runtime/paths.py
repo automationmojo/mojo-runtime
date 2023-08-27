@@ -240,9 +240,8 @@ def get_path_for_testresults() -> str:
 
     if DIR_TESTRESULTS_DIRECTORY is None:
         ctx = ContextSingleton()
-        configuration = ctx.lookup("/configuration")
 
-        tr_dir = configuration.lookup("/paths/testresults")
+        tr_dir = ctx.lookup(ContextPaths.RESULT_PATH_FOR_TESTS)
 
         DIR_TESTRESULTS_DIRECTORY = tr_dir
 

@@ -595,14 +595,14 @@ files = [
 
 [[package]]
 name = "mojo-collections"
-version = "0.0.5"
+version = "0.0.8"
 description = "Mojo Collections Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_collections-0.0.5-py3-none-any.whl", hash = "sha256:ca2cbc2a1b7d455645ac57df579579f57ca33f6ab3106d6ef7010c126d99ff97"},
-    {file = "mojo_collections-0.0.5.tar.gz", hash = "sha256:b3edf708b43e9f6aea5177eb62400e8a32e270851a8e1e81ff58eb55abf5425b"},
+    {file = "mojo_collections-0.0.8-py3-none-any.whl", hash = "sha256:1600a21d87796a44daa62137499b5613353946e02b08608774cec2c6fb06431c"},
+    {file = "mojo_collections-0.0.8.tar.gz", hash = "sha256:d2615371d2ef48d20e32fcad23c2e2411efd95cdd176360ba7574dc27aa2be79"},
 ]
 
 [[package]]
@@ -1096,4 +1096,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "5fd18ad17af5ce466cd75216704a6cebdfba0c1a9724bbb9444a66def9b9e526"
+content-hash = "3892d9f1f9eb77f1c72a18edc4a58f0eb2b2c359e9779674563e4090d247e8f8"

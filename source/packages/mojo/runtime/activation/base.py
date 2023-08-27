@@ -111,24 +111,15 @@ def expand_path(path_in, expansions=DEFAULT_PATH_EXPANSIONS):
 
 # We set all the variables for config file options from the environment
 # we just loaded, these might get overridden late but that is ok
-configuration = ctx.lookup("/configuration", default={})
-
-if "diagnostics" not in configuration:
-    configuration["diagnostics"] = {}
-
-if TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE is not None:
-    if TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE not in VALID_MEMBER_TRACE_POLICY:
-        configuration["diagnostics"]["traceback-policy-override"] = TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE
+current_traceback_policy = ctx.lookup(ContextPaths.DIAGNOSTICS_TRACEBACK_POLICY_OVERRIDE, default=None)
+if current_traceback_policy is None and TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE is not None:
+    if TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE in VALID_MEMBER_TRACE_POLICY:
+        ctx.insert(ContextPaths.DIAGNOSTICS_TRACEBACK_POLICY_OVERRIDE, TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE)
     else:
         errmsg = "Invalid traceback policy environment value. TRACEBACK_POLICY_OVERRIDE={}".format(
             TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE
         )
         raise ConfigurationError(errmsg)
-
-# If a traceback policy override was set, apply it in the TRACEBACK_CONFIG in the contextualize.exceptions module
-if "traceback-policy-override" in configuration["diagnostics"]:
-    TRACEBACK_CONFIG.TRACEBACK_POLICY_OVERRIDE = configuration["diagnostics"]["traceback-policy-override"]
-
 
 # Activation Step - 5: After
 if MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE is not None and MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE in LOG_LEVEL_NAMES:
@@ -172,28 +163,28 @@ if MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY is not None:
 else:
     if jobtype == JobType.Console:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "console", "%(starttime)s")
-        outdir_template = configuration.lookup("/path-templates/console-results", default=default_dir_template)
+        outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_CONSOLE, default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         outdir_full = expand_path(filled_dir_results)
         ctx.insert(ContextPaths.RESULT_PATH_FOR_CONSOLE, outdir_full)
 
     elif jobtype == JobType.Orchestration:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "orchestration", "%(starttime)s")
-        outdir_template = configuration.lookup("/path-templates/orchestration-results", default=default_dir_template)
+        outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_ORCHESTRATION, default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         outdir_full = expand_path(filled_dir_results)
         ctx.insert(ContextPaths.RESULT_PATH_FOR_ORCHESTRATION, outdir_full)
 
     elif jobtype == JobType.Service:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "service", "%(starttime)s")
-        outdir_template = configuration.lookup("/path-templates/service-logs", default=default_dir_template)
+        outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_SERVICES, default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         outdir_full = expand_path(filled_dir_results)
         ctx.insert(ContextPaths.RESULT_PATH_FOR_SERVICES, outdir_full)
 
     else:
         default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "testresults", "%(starttime)s")
-        outdir_template = configuration.lookup("/path-templates/test-results", default=default_dir_template)
+        outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_TESTS, default=default_dir_template)
         filled_dir_results = outdir_template % fill_dict
         outdir_full = expand_path(filled_dir_results)
         ctx.insert(ContextPaths.RESULT_PATH_FOR_TESTS, outdir_full)
