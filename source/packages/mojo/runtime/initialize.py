@@ -18,6 +18,7 @@ __license__ = "MIT"
 
 from typing import Optional, Type
 
+import os
 
 from mojo.config.overrides import MOJO_CONFIG_OVERRIDES
 from mojo.config.variables import MOJO_CONFIG_VARNAMES
@@ -95,6 +96,7 @@ def resolve_extension_factories():
     return
 
 def initialize_runtime(*, name: Optional[str]=None,
+                          home_dir: Optional[str]=None,
                           logger_name: Optional[str]=None,
                           default_configuration: dict=None,
                           service_name: Optional[str]=None):
@@ -102,11 +104,15 @@ def initialize_runtime(*, name: Optional[str]=None,
     MOJO_RUNTIME_STATE.INITIALIZED = True
 
     if name is not None:
-        MOJO_RUNTIME_OVERRIDES.MJR_NAME = name
+        MOJO_CONFIG_OVERRIDES.MJR_NAME = name
+        if home_dir is None:
+            MOJO_CONFIG_OVERRIDES.MJR_HOME_DIRECTORY = os.path.join(os.path.expanduser("~"), name)
+    if home_dir is not None:
+        MOJO_CONFIG_OVERRIDES.MJR_HOME_DIRECTORY = os.path.expandvars(os.path.expanduser(home_dir))
     if logger_name is not None:
         MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME = logger_name
     if default_configuration is not None:
-        MOJO_RUNTIME_OVERRIDES.DEFAULT_CONFIGURATION = default_configuration
+        MOJO_CONFIG_OVERRIDES.DEFAULT_CONFIGURATION = default_configuration
 
     if service_name is not None:
         MOJO_RUNTIME_OVERRIDES.MJR_SERVICE_NAME = service_name
