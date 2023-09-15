@@ -28,6 +28,7 @@ from mojo.collections.wellknown import ContextSingleton
 
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 
+DIR_CACHE_DIRECTORY = None
 DIR_DIAGNOSTICS_DIRECTORY = None
 DIR_RESULTS_DIRECTORY = None
 DIR_TESTRESULTS_DIRECTORY = None
@@ -97,6 +98,23 @@ def ensure_directory_is_package(package_dir: str, package_title: Optional[str] =
                 initf.write('   %s\n' % package_title)
             initf.write('"""\n')
     return
+
+def get_directory_for_cached_files(create=True) -> str:
+    """
+        Returns the path to the {home}/cache directory.
+    """
+
+    global DIR_CACHE_DIRECTORY
+
+    if DIR_CACHE_DIRECTORY is None:
+        ctx = ContextSingleton()
+
+        runtime_home_dir = get_expanded_path(ctx.lookup(ContextPaths.RUNTIME_HOME_DIRECTORY))
+        DIR_CACHE_DIRECTORY = os.path.join(runtime_home_dir, "cache")
+        if create and not os.path.exists(DIR_CACHE_DIRECTORY):
+            os.makedirs(DIR_CACHE_DIRECTORY)
+
+    return DIR_CACHE_DIRECTORY
 
 def get_directory_for_code_container(container: str) -> str:
     """
