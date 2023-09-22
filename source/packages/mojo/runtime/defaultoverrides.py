@@ -1,0 +1,7 @@
+
+from mojo.config.overrides import MOJO_CONFIG_OVERRIDES
+
+class MOJO_RUNTIME_OVERRIDES(MOJO_CONFIG_OVERRIDES):
+
+    MJR_LOGGER_NAME = "MJR"
+    MJR_SERVICE_NAME = None

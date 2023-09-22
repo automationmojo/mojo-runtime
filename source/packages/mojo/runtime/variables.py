@@ -35,23 +35,10 @@ from mojo.xmods.xdatetime import (
 )
 from mojo.xmods.xlogging.levels import LogLevel
 
-from mojo.runtime.initialize import MOJO_RUNTIME_OVERRIDES, MOJO_RUNTIME_VARNAMES
+from mojo.runtime.enumerations import JobType
 
-
-class ActivationProfile(str, Enum):
-    Command = "command"
-    Console = "console"
-    Orchestration = "orchestration"
-    Service = "service"
-    TestRun = "testrun"
-
-
-class JobType(str, Enum):
-    Unknown = "unknown"
-    Console = "console"
-    Service = "service"
-    TestRun = "testrun"
-    Orchestration = "orchestration"
+from mojo.runtime.defaultoverrides import MOJO_RUNTIME_OVERRIDES
+from mojo.runtime.variablenames import MOJO_RUNTIME_VARNAMES
 
 
 def normalize_variable_whitespace(lval):

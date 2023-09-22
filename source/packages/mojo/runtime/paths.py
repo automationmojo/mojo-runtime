@@ -26,8 +26,6 @@ import tempfile
 from mojo.collections.contextpaths import ContextPaths
 from mojo.collections.wellknown import ContextSingleton
 
-from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
-
 DIR_CACHE_DIRECTORY = None
 DIR_DIAGNOSTICS_DIRECTORY = None
 DIR_RESULTS_DIRECTORY = None
