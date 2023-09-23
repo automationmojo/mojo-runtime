@@ -1,3 +1,12 @@
+"""
+.. module:: optionoverrides
+    :platform: Darwin, Linux, Unix, Windows
+    :synopsis: Module that contains override mechanisms for the environment variable
+               names used to initialize a global context for a python application
+
+.. moduleauthor:: Myron Walker <myron.walker@gmail.com>
+"""
+
 __author__ = "Myron Walker"
 __copyright__ = "Copyright 2020, Myron W Walker"
 __credits__ = []
