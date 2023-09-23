@@ -9,7 +9,8 @@ class TestStartupConsole(unittest.TestCase):
 
         initialize_runtime(name="mjr", logger_name="MJR")
 
-        import mojo.runtime.activation.console
+        from mojo.runtime.activation import activate_runtime, ActivationProfile
+        activate_runtime(profile=ActivationProfile.Console)
 
         from mojo.runtime.paths import get_path_for_output
 

@@ -11,7 +11,8 @@ class TestStartupService(unittest.TestCase):
 
         initialize_runtime(name="mjr", logger_name="MJR", service_name=service_name)
 
-        import mojo.runtime.activation.service
+        from mojo.runtime.activation import activate_runtime, ActivationProfile
+        activate_runtime(profile=ActivationProfile.Service)
 
         from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
         from mojo.runtime.paths import get_path_for_output
