@@ -21,6 +21,7 @@ import os
 import tempfile
 import uuid
 
+from logging import FileHandler
 from logging.handlers import RotatingFileHandler
 
 
@@ -42,6 +43,31 @@ from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 
 from mojo.xmods.xlogging.levels import LogLevel
 
+def activate_profile_command():
+
+    # Guard against attemps to activate more than one, activation profile.
+    if MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE is not None:
+        errmsg = "An attempt was made to activate multiple environment activation profiles. profile={}".format(
+            MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE
+        )
+        raise SemanticError(errmsg)
+
+    MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE = ActivationProfile.Command
+    MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.Unknown.value
+    os.environ[MOJO_RUNTIME_VARNAMES.MJR_JOB_TYPE] = MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE
+
+    temp_output_dir = tempfile.mkdtemp()
+    MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = temp_output_dir
+
+    activate_profile_common()
+
+    from mojo.xmods.xlogging.foundations import logging_initialize, LoggingDefaults # pylint: disable=wrong-import-position
+
+    LoggingDefaults.DefaultFileLoggingHandler = FileHandler
+    logging_initialize()
+
+
+    return
 
 def activate_profile_console():
 
