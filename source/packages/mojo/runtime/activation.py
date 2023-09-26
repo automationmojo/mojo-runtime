@@ -125,8 +125,6 @@ def activate_profile_console():
         LoggingDefaults.DefaultFileLoggingHandler = RotatingFileHandler
         logging_initialize()
 
-        showlog()
-
     return
 
 def activate_profile_service():
@@ -320,7 +318,9 @@ def activate_profile_common():
 def activate_runtime(*, profile: Optional[ActivationProfile]=ActivationProfile.Console):
 
     # Activate the runtime profile specified
-    if profile == ActivationProfile.Console:
+    if profile == ActivationProfile.Command:
+        activate_profile_command()
+    elif profile == ActivationProfile.Console:
         activate_profile_console()
     elif profile == ActivationProfile.Service:
         activate_profile_service()
