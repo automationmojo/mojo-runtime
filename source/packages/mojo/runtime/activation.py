@@ -180,10 +180,13 @@ def activate_profile_testrun():
         raise RuntimeError(errmsg)
 
     MOJO_RUNTIME_VARIABLES.MJR_ACTIVATION_PROFILE = ActivationProfile.TestRun
+    MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE = LogLevel.WARNING
 
     MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = JobType.TestRun.value
 
+    os.environ[MOJO_RUNTIME_VARNAMES.MJR_LOG_LEVEL_CONSOLE] = str(MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE)
     os.environ[MOJO_RUNTIME_VARNAMES.MJR_JOB_TYPE] = str(MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
+
 
     activate_profile_common()
 
