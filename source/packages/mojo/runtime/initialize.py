@@ -29,21 +29,6 @@ class MOJO_RUNTIME_STATE:
     INITIALIZED = False
 
 
-def resolve_extension_factories():
-
-    from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
-
-    if MOJO_RUNTIME_VARIABLES.MJR_EXTENSION_FACTORY_ADDITIONS is not None:
-
-        modules_raw = MOJO_RUNTIME_VARIABLES.MJR_EXTENSION_FACTORY_ADDITIONS.split(",")
-        modules_trimmed = [nm.strip() for nm in modules_raw]
-
-        from mojo.xmods.extension.configured import SuperFactory
-        SuperFactory.search_modules.extend(modules_trimmed)
-
-    return
-
-
 def initialize_runtime(*, name: Optional[str]=None,
                           home_dir: Optional[str]=None,
                           logger_name: Optional[str]=None,
@@ -80,8 +65,5 @@ def initialize_runtime(*, name: Optional[str]=None,
     # The runtime variables can tell us where to find extensions, so we must resolve the runtime
     # varaibles before attempting to resolve any extension factories.
     resolve_runtime_variables()
-
-    # Resolve any runtime extensions
-    resolve_extension_factories()
 
     return
