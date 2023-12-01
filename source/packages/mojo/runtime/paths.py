@@ -332,7 +332,7 @@ def normalize_name_for_path(name: str) -> str:
     norm_name = name.translate(TRANSLATE_TABLE_NORMALIZE_FOR_PATH).replace(" ", "")
     return norm_name
 
-def utilizing_shared_output_path(self) -> bool:
+def utilizing_shared_output_path() -> bool:
     """
         Returns a boolean value indicating the runtime is configured to use a shared output
         path across compute resources.
