@@ -39,6 +39,7 @@ category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
+    {file = "bcrypt-4.1.1-cp37-abi3-macosx_10_12_universal2.whl", hash = "sha256:196008d91201bbb1aa4e666fee5e610face25d532e433a560cabb33bfdff958b"},
     {file = "bcrypt-4.1.1-cp37-abi3-macosx_13_0_universal2.whl", hash = "sha256:2e197534c884336f9020c1f3a8efbaab0aa96fc798068cb2da9c671818b7fbb0"},
     {file = "bcrypt-4.1.1-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d573885b637815a7f3a3cd5f87724d7d0822da64b0ab0aa7f7c78bae534e86dc"},
     {file = "bcrypt-4.1.1-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bab33473f973e8058d1b2df8d6e095d237c49fbf7a02b527541a86a5d1dc4444"},
@@ -442,21 +443,21 @@ files = [
 
 [[package]]
 name = "importlib-metadata"
-version = "6.8.0"
+version = "7.0.0"
 description = "Read metadata from Python packages"
 category = "dev"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "importlib_metadata-6.8.0-py3-none-any.whl", hash = "sha256:3ebb78df84a805d7698245025b975d9d67053cd94c79245ba4b3eb694abe68bb"},
-    {file = "importlib_metadata-6.8.0.tar.gz", hash = "sha256:dbace7892d8c0c4ac1ad096662232f831d4e64f4c4545bd53016a3e9d4654743"},
+    {file = "importlib_metadata-7.0.0-py3-none-any.whl", hash = "sha256:d97503976bb81f40a193d41ee6570868479c69d5068651eb039c40d850c59d67"},
+    {file = "importlib_metadata-7.0.0.tar.gz", hash = "sha256:7fc841f8b8332803464e5dc1c63a2e59121f46ca186c0e2e182e80bf8c1319f7"},
 ]
 
 [package.dependencies]
 zipp = ">=0.5"
 
 [package.extras]
-docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
+docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (<7.2.5)", "sphinx (>=3.5)", "sphinx-lint"]
 perf = ["ipython"]
 testing = ["flufl.flake8", "importlib-resources (>=1.3)", "packaging", "pyfakefs", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-mypy (>=0.9.1)", "pytest-perf (>=0.9.2)", "pytest-ruff"]
 
@@ -607,14 +608,14 @@ files = [
 
 [[package]]
 name = "mojo-collections"
-version = "0.0.13"
+version = "0.0.15"
 description = "Mojo Collections Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_collections-0.0.13-py3-none-any.whl", hash = "sha256:730a004a1ddff30863cc2566ad5c842101da7fa76112680b4262d81d1b0a7770"},
-    {file = "mojo_collections-0.0.13.tar.gz", hash = "sha256:9ede88a012bcaf44804d2089545908efde7455f107114a048c6c325627c16c6b"},
+    {file = "mojo_collections-0.0.15-py3-none-any.whl", hash = "sha256:e9eb6c525fca349c01b6213bee6fdb3be486fde43c0d1c127052eca5d8ccb99f"},
+    {file = "mojo_collections-0.0.15.tar.gz", hash = "sha256:3d59361c50f27799eeacb8052f97502c4a739c17a886c6dd0d59d32fd183a815"},
 ]
 
 [[package]]
@@ -664,14 +665,14 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "1.0.3"
+version = "1.0.6"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-1.0.3-py3-none-any.whl", hash = "sha256:33284b28d0ec6961bd6d709e790a9a607073c4114416d67c4f57a612d141ce3b"},
-    {file = "mojo_xmodules-1.0.3.tar.gz", hash = "sha256:4248a4674600e8fda34d5755e7d3672def68b35dd7bb20d7e643839164f0997d"},
+    {file = "mojo_xmodules-1.0.6-py3-none-any.whl", hash = "sha256:d09fb1c3c5bd30ede46383706e0ed7fad9263d8561098055ca5edf4d4693b87d"},
+    {file = "mojo_xmodules-1.0.6.tar.gz", hash = "sha256:559ab90b244573eaf93375679fbac77ef5424deb61721fb83bbec57ab97e01a1"},
 ]
 
 [package.dependencies]
