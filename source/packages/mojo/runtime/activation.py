@@ -295,7 +295,10 @@ def activate_profile_common():
             filled_dir_results = outdir_template % fill_dict
             ctx.insert(ContextPaths.RESULT_PATH_FOR_TESTS, filled_dir_results)
 
-        ctx.insert(ContextPaths.OUTPUT_DIRECTORY, filled_dir_results)
+        MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = filled_dir_results
+
+    if ctx.lookup(ContextPaths.OUTPUT_DIRECTORY) is None:
+        ctx.insert(ContextPaths.OUTPUT_DIRECTORY, MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY)
 
     return
 
