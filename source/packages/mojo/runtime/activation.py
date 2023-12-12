@@ -268,8 +268,9 @@ def activate_profile_common():
     outdir_full = None
 
     # Figure out which output directory to set as the current process output directory.  The output directory
-    # determines where logging will go and is different depending on the activation mode of the test framework
+    # determines where loggin will go and is different depending on the activation mode of the test framework
     if MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY is None:
+        filled_dir_results = None
         if jobtype == JobType.Console:
             default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "console", "%(starttime)s")
             outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_CONSOLE, default=default_dir_template)
@@ -294,7 +295,7 @@ def activate_profile_common():
             filled_dir_results = outdir_template % fill_dict
             ctx.insert(ContextPaths.RESULT_PATH_FOR_TESTS, filled_dir_results)
 
-        ctx.insert(ContextPaths.OUTPUT_DIRECTORY, outdir_full)
+        ctx.insert(ContextPaths.OUTPUT_DIRECTORY, filled_dir_results)
 
     return
 
