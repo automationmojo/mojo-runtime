@@ -21,7 +21,6 @@ from typing import List, Optional
 import os
 
 from datetime import datetime
-from enum import Enum
 from uuid import uuid4
 
 from mojo.collections.contextpaths import ContextPaths
