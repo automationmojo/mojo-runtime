@@ -18,7 +18,6 @@ __license__ = "MIT"
 
 from typing import List, Optional
 
-
 import os
 
 from datetime import datetime
@@ -40,6 +39,7 @@ from mojo.runtime.enumerations import JobType
 
 from mojo.runtime.defaultoverrides import MOJO_RUNTIME_OVERRIDES
 from mojo.runtime.variablenames import MOJO_RUNTIME_VARNAMES
+
 
 
 def normalize_variable_whitespace(lval):
@@ -121,6 +121,7 @@ def resolve_runtime_variables():
         else:
             starttime = parse_datetime(passedVal, DATETIME_FORMAT_FILESYSTEM)
         MOJO_RUNTIME_VARIABLES.MJR_STARTTIME = starttime
+    ctx.insert(ContextPaths.STARTTIME, MOJO_RUNTIME_VARIABLES.MJR_STARTTIME)
 
     MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = None
     if MOJO_RUNTIME_VARNAMES.MJR_OUTPUT_DIRECTORY in environ:
