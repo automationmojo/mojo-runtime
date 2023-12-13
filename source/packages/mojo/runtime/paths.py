@@ -308,6 +308,10 @@ def get_temporary_directory() -> str:
         Returns the path of a temporary directory in the output directory.
     """
     temp_dir = os.path.join(get_path_for_output(), "temp")
+
+    if not os.path.exists(temp_dir):
+        os.makedirs(temp_dir)
+
     return temp_dir
 
 def get_temporary_file(suffix: str = '', prefix: str = '') -> str:
