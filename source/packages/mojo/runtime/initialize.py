@@ -21,6 +21,7 @@ from typing import Optional
 import os
 
 from mojo.config.overrides import MOJO_CONFIG_OVERRIDES
+from mojo.extension.extensionvariables import establish_rebranded_home
 
 from mojo.runtime.defaultoverrides import MOJO_RUNTIME_OVERRIDES
 
@@ -29,7 +30,9 @@ class MOJO_RUNTIME_STATE:
     INITIALIZED = False
 
 
-def initialize_runtime(*, logger_name: Optional[str]=None,
+def initialize_runtime(*, name: Optional[str]=None,
+                          home_dir: Optional[str]=None,
+                          logger_name: Optional[str]=None,
                           default_configuration: dict=None,
                           service_name: Optional[str]=None):
 
@@ -44,6 +47,8 @@ def initialize_runtime(*, logger_name: Optional[str]=None,
 
     MOJO_RUNTIME_STATE.INITIALIZED = True
 
+    establish_rebranded_home(name=name, home_dir=home_dir)
+    
     if logger_name is not None:
         MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME = logger_name
     if default_configuration is not None:
