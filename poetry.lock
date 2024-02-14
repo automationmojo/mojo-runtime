@@ -633,21 +633,21 @@ files = [
 
 [[package]]
 name = "mojo-config"
-version = "1.3.2"
+version = "1.3.4"
 description = "Automation Mojo Configuration Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_config-1.3.2-py3-none-any.whl", hash = "sha256:59813d11783c03c133b362ba46bd02642868eda68954664588643b08d416d4e3"},
-    {file = "mojo_config-1.3.2.tar.gz", hash = "sha256:ec62bb29699a6060d68baf8d1c37f6053f59713a7bbb82a0692c7bb5d8dd4f54"},
+    {file = "mojo_config-1.3.4-py3-none-any.whl", hash = "sha256:dfd940f6be858ee6e3b835ea3da415b9ec06ab18aa4618136630f2d7fb0359c4"},
+    {file = "mojo_config-1.3.4.tar.gz", hash = "sha256:f5832228a00efebd747612ca4336b282373664aee8037d9ee6c7dac9e4437a65"},
 ]
 
 [package.dependencies]
 cryptography = ">=41.0.3,<42.0.0"
 mojo-collections = ">=1.3.0,<1.4.0"
 mojo-errors = ">=1.3.0,<1.4.0"
-mojo-extension = ">=1.3.4,<1.4.0"
+mojo-extension = ">=1.3.7,<1.4.0"
 mojo-startup = ">=1.3.5,<1.4.0"
 
 [package.extras]
@@ -668,14 +668,14 @@ files = [
 
 [[package]]
 name = "mojo-extension"
-version = "1.3.6"
+version = "1.3.7"
 description = "Automation Mojo Extension Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_extension-1.3.6-py3-none-any.whl", hash = "sha256:abbd8c3ce869adbabb772b5cc9edf400a7507508a1694de83076082ad90fb074"},
-    {file = "mojo_extension-1.3.6.tar.gz", hash = "sha256:db21dc9e111442d145fb825598d02fc44c0506d5dee5c1317e0d943e44ebf0b1"},
+    {file = "mojo_extension-1.3.7-py3-none-any.whl", hash = "sha256:a6801afab199e80bb176f656227165eb3043521b29dc088d5a7327078356afb4"},
+    {file = "mojo_extension-1.3.7.tar.gz", hash = "sha256:aeeb995bbdaeac83df12d7a450fddf14798676806651df195fef415a98b1b853"},
 ]
 
 [package.dependencies]
@@ -1163,4 +1163,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "08f6d626318f3ec90ba6d2fc4c607406dd9e51a1f7ba04257bff42d65aaa0765"
+content-hash = "88cf3c5c49a96e6c9747c2cf3c0a69c1356742d903be761ba36c84e8a5f07df8"
