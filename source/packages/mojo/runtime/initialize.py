@@ -47,7 +47,7 @@ def initialize_runtime(*, name: Optional[str]=None,
 
     MOJO_RUNTIME_STATE.INITIALIZED = True
 
-    establish_rebranded_home(name=name, home_dir=home_dir)
+    establish_rebranded_home(name=name, home_directory=home_dir)
     
     if logger_name is not None:
         MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME = logger_name
