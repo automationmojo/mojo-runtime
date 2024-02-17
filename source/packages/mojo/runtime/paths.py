@@ -151,7 +151,7 @@ def get_files_for_credentials() -> str:
     """
 
     ctx = ContextSingleton()
-    files = ctx.lookup(ContextPaths.CONFIG_CREDENTIAL_URIS)
+    files = get_expanded_path(ctx.lookup(ContextPaths.CONFIG_CREDENTIAL_URIS))
 
     return files
 
@@ -161,7 +161,7 @@ def get_files_for_landscape() -> str:
     """
 
     ctx = ContextSingleton()
-    files = ctx.lookup(ContextPaths.CONFIG_LANDSCAPE_URIS)
+    files = get_expanded_path(ctx.lookup(ContextPaths.CONFIG_LANDSCAPE_URIS))
 
     return files
 
@@ -171,7 +171,7 @@ def get_files_for_runtime() -> str:
     """
 
     ctx = ContextSingleton()
-    files = ctx.lookup(ContextPaths.CONFIG_RUNTIME_URIS)
+    files = get_expanded_path(ctx.lookup(ContextPaths.CONFIG_RUNTIME_URIS))
 
     return files
 
@@ -257,7 +257,7 @@ def get_path_for_testresults() -> str:
     if DIR_TESTRESULTS_DIRECTORY is None:
         ctx = ContextSingleton()
 
-        tr_dir = ctx.lookup(ContextPaths.RESULT_PATH_FOR_TESTS)
+        tr_dir = get_expanded_path(ctx.lookup(ContextPaths.RESULT_PATH_FOR_TESTS))
 
         DIR_TESTRESULTS_DIRECTORY = tr_dir
 
@@ -274,7 +274,7 @@ def get_summary_html_template_source() -> str:
     """
     ctx = ContextSingleton()
 
-    template = ctx.lookup(ContextPaths.FILE_RESULTS_TEMPLATE)
+    template = get_expanded_path(ctx.lookup(ContextPaths.FILE_RESULTS_TEMPLATE))
 
     if template is None:
         errmsg = "Error attempting to lookup the summary html template source."
@@ -287,7 +287,7 @@ def get_summary_static_resource_dest_dir(create=True) -> str:
         Returns the path where the static resources for test summaries should be published.
     """
     ctx = ContextSingleton()
-    res_dir = ctx.lookup(ContextPaths.DIR_RESULTS_RESOURCE_DEST)
+    res_dir = get_expanded_path(ctx.lookup(ContextPaths.DIR_RESULTS_RESOURCE_DEST))
 
     if create and not os.path.exists(res_dir):
         os.makedirs(res_dir)
@@ -299,7 +299,7 @@ def get_summary_static_resource_src_dir() -> str:
         Returns the path that is the source path for the test summary static resources.
     """
     ctx = ContextSingleton()
-    res_dir = ctx.lookup(ContextPaths.DIR_RESULTS_RESOURCE_SRC)
+    res_dir = get_expanded_path(ctx.lookup(ContextPaths.DIR_RESULTS_RESOURCE_SRC))
 
     return res_dir
 
