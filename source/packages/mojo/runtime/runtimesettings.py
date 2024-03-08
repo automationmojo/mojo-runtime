@@ -47,7 +47,7 @@ def establish_runtime_settings(name: Optional[str]=None, home_dir: Optional[str]
     if not RUNTIME_SETTINGS_ESTABLISHED:
         RUNTIME_SETTINGS_ESTABLISHED = True
 
-        establish_config_settings(name=name, home_directory=home_dir, default_configuration=default_configuration)
+        establish_config_settings(name=name, home_dir=home_dir, default_configuration=default_configuration)
         
         if logger_name is not None:
             MOJO_RUNTIME_DEFAULTS.MJR_LOGGER_NAME = logger_name
