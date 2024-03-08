@@ -36,7 +36,7 @@ from mojo.xmods.xlogging.levels import LogLevel
 
 from mojo.runtime.enumerations import JobType
 
-from mojo.runtime.defaultoverrides import MOJO_RUNTIME_OVERRIDES
+from mojo.runtime.runtimesettings import MOJO_RUNTIME_DEFAULTS
 from mojo.runtime.variablenames import MOJO_RUNTIME_VARNAMES
 
 
@@ -57,8 +57,8 @@ class MOJO_RUNTIME_VARIABLES(MOJO_CONFIG_VARIABLES):
         Container for all the configuration variables that can be passed via environmental variables.
     """
 
-    MJR_SERVICE_NAME = MOJO_RUNTIME_OVERRIDES.MJR_SERVICE_NAME
-    MJR_LOGGER_NAME = MOJO_RUNTIME_OVERRIDES.MJR_LOGGER_NAME
+    MJR_SERVICE_NAME = MOJO_RUNTIME_DEFAULTS.MJR_SERVICE_NAME
+    MJR_LOGGER_NAME = MOJO_RUNTIME_DEFAULTS.MJR_LOGGER_NAME
 
     MJR_OUTPUT_DIRECTORY = None
     MJR_SHARED_OUTPUT_DIRECTORY = False
