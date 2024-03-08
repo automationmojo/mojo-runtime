@@ -46,7 +46,7 @@ def initialize_runtime(*, name: Optional[str]=None,
 
     MOJO_RUNTIME_STATE.INITIALIZED = True
 
-    establish_runtime_settings(name=name, home_directory=home_dir, logger_name=logger_name, default_configuration=default_configuration, service_name=service_name)
+    establish_runtime_settings(name=name, home_dir=home_dir, logger_name=logger_name, default_configuration=default_configuration, service_name=service_name)
     
     from mojo.runtime.variables import resolve_runtime_variables
 
