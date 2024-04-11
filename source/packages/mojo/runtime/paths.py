@@ -269,7 +269,7 @@ def get_path_for_testresults() -> str:
 
 def get_path_for_testcase_by_products(test_id: str) -> str:
     """
-        Returns a path to the test by-products
+        Returns a path to the tc-by-products
     """
 
     global DIR_TESTCASE_BYPRODUCTS_DIRECTORY
@@ -277,7 +277,7 @@ def get_path_for_testcase_by_products(test_id: str) -> str:
     if DIR_TESTCASE_BYPRODUCTS_DIRECTORY is None:
 
         trdir = get_path_for_testresults()
-        DIR_TESTCASE_BYPRODUCTS_DIRECTORY = os.path.join(trdir, "test-by-products", test_id)
+        DIR_TESTCASE_BYPRODUCTS_DIRECTORY = os.path.join(trdir, "tc-by-products", test_id)
 
         if not os.path.exists(DIR_TESTCASE_BYPRODUCTS_DIRECTORY):
             os.makedirs(DIR_TESTCASE_BYPRODUCTS_DIRECTORY)
