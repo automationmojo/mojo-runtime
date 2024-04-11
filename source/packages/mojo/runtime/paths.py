@@ -30,6 +30,7 @@ DIR_CACHE_DIRECTORY = None
 DIR_DIAGNOSTICS_DIRECTORY = None
 DIR_RESULTS_DIRECTORY = None
 DIR_TESTRESULTS_DIRECTORY = None
+DIR_TESTCASE_BYPRODUCTS_DIRECTORY = None
 
 TRANSLATE_TABLE_NORMALIZE_FOR_PATH = str.maketrans(",.:;", "    ")
 
@@ -265,6 +266,23 @@ def get_path_for_testresults() -> str:
             os.makedirs(DIR_TESTRESULTS_DIRECTORY)
 
     return DIR_TESTRESULTS_DIRECTORY
+
+def get_path_for_testcase_by_products(test_id: str) -> str:
+    """
+        Returns a path to the test by-products
+    """
+
+    global DIR_TESTCASE_BYPRODUCTS_DIRECTORY
+
+    if DIR_TESTCASE_BYPRODUCTS_DIRECTORY is None:
+
+        trdir = get_path_for_testresults()
+        DIR_TESTCASE_BYPRODUCTS_DIRECTORY = os.path.join(trdir, "test-by-products", test_id)
+
+        if not os.path.exists(DIR_TESTCASE_BYPRODUCTS_DIRECTORY):
+            os.makedirs(DIR_TESTCASE_BYPRODUCTS_DIRECTORY)
+
+    return DIR_TESTCASE_BYPRODUCTS_DIRECTORY
 
 def get_summary_html_template_source() -> str:
     """
