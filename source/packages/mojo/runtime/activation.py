@@ -187,8 +187,10 @@ def activate_profile_testrun():
     os.environ[MOJO_RUNTIME_VARNAMES.MJR_LOG_LEVEL_CONSOLE] = str(MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE)
     os.environ[MOJO_RUNTIME_VARNAMES.MJR_JOB_TYPE] = str(MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE)
 
-
     activate_profile_common()
+
+    ctx = ContextSingleton()
+    ctx.insert(ContextPaths.RESULT_PATH_FOR_TESTS,  MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY)
 
     from mojo.xmods.xlogging.foundations import logging_initialize
     
