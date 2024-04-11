@@ -1,6 +1,7 @@
-# Python Package Template
+# Automation Mojo Runtime
 
-This is a template repository that can be used to start off a python package project.
+The Automation Mojo - Runtime package provides functionality that help to setup various types of runtime
+environments such as Test Run, Console Script, Interactive Console and Service
 
 # Features of this Template
 
