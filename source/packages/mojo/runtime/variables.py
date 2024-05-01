@@ -42,9 +42,11 @@ from mojo.runtime.variablenames import MOJO_RUNTIME_VARNAMES
 
 
 def normalize_variable_whitespace(lval):
-    lval = lval.strip().replace("/t", " ")
+    lval = lval.strip().replace("\t", " ")
+
     while lval.find("  ") > -1:
         lval = lval.replace("  ", " ")
+    
     return lval
 
 

@@ -13,11 +13,11 @@ def landscape_example_main():
 
     initialize_runtime(name="mjr", logger_name="MJR")
 
-    output_dir = os.path.expanduser("~/mjr/results/examples/landscaping")
+    output_dir = os.path.expanduser(os.path.join("~", "mjr", "results", "examples", "landscaping"))
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    config_dir = os.path.expanduser("~/mjr/config")
+    config_dir = os.path.expanduser(os.path.join("~", "mjr", "config"))
     if not os.path.exists(config_dir):
         os.makedirs(config_dir)
 

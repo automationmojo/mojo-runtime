@@ -1,6 +1,8 @@
 
 import unittest
 
+import os
+
 from mojo.xmods.xdatetime import parse_datetime, DATETIME_FORMAT_FILESYSTEM
 
 class TestStartupTestRun(unittest.TestCase):
@@ -22,8 +24,8 @@ class TestStartupTestRun(unittest.TestCase):
         assert output_directory.startswith(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY), \
             "The output path should reside under the home directory"
 
-        output_directory = output_directory.replace(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "").lstrip("/")
-        other_parts = output_directory.split("/")
+        output_directory = output_directory.replace(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "").lstrip(os.sep)
+        other_parts = output_directory.split(os.sep)
 
         assert other_parts[0] == "results", "Next directory should have been 'results'."
         assert other_parts[1] == "testresults", "Next directory should have been 'testresults'."
