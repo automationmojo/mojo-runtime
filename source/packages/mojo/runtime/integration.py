@@ -1,4 +1,9 @@
 
+__author__ = "Myron Walker"
+__copyright__ = "Copyright 2023, Myron W Walker"
+__credits__ = []
+
+
 from typing import Dict
 
 from mojo.collections.contextpaths import ContextPaths
@@ -67,8 +72,6 @@ def get_job_venue() -> str:
     rtnval = ctx.lookup(ContextPaths.JOB_VENUE)
 
     return rtnval
-
-
 
 def get_pipeline_info() -> Dict[str, str]:
 
