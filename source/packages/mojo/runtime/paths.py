@@ -25,6 +25,7 @@ from mojo.collections.wellknown import ContextSingleton
 DIR_CACHE_DIRECTORY = None
 DIR_DIAGNOSTICS_DIRECTORY = None
 DIR_RESULTS_DIRECTORY = None
+DIR_SHARED_STORE_DIRECTORY = None
 DIR_TESTRESULTS_DIRECTORY = None
 DIR_TESTCASE_BYPRODUCTS_DIRECTORY = None
 
@@ -213,6 +214,22 @@ def get_path_for_output(create=True) -> str:
             os.makedirs(DIR_RESULTS_DIRECTORY)
 
     return DIR_RESULTS_DIRECTORY
+
+
+def get_path_for_shared_store(create=True) -> str:
+    """
+        Returns the path to the designated shared storage directory.
+    """
+    global DIR_SHARED_STORE_DIRECTORY
+
+    if DIR_SHARED_STORE_DIRECTORY is None:
+        ctx = ContextSingleton()
+
+        DIR_SHARED_STORE_DIRECTORY = get_expanded_path(ctx.lookup(ContextPaths.SHARED_STORE_DIRECTORY))
+        if create and not os.path.exists(DIR_SHARED_STORE_DIRECTORY):
+            os.makedirs(DIR_SHARED_STORE_DIRECTORY)
+    
+    return DIR_SHARED_STORE_DIRECTORY
 
 def get_path_for_diagnostics(label: str) -> str:
     """
