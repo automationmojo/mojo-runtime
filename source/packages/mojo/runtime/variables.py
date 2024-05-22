@@ -105,6 +105,9 @@ class MOJO_RUNTIME_VARIABLES(MOJO_CONFIG_VARIABLES):
 
     MJR_TESTROOT = None
 
+def get_runtime_seed() -> str:
+    rtnval = MOJO_RUNTIME_VARIABLES.MJR_JOB_SEED
+    return rtnval
 
 def resolve_runtime_variables():
 
