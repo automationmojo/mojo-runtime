@@ -178,6 +178,48 @@ class MOJO_RUNTIME_OPTION_OVERRIDES(MOJO_CONFIG_OPTION_OVERRIDES):
         MOJO_RUNTIME_VARIABLES.MJR_JOB_OWNER = job_owner
 
         return
+    
+    @staticmethod
+    def override_job_seed(job_seed: str):
+        """
+            This override function provides a mechanism overriding the MJR_JOB_SEED
+            variable and context configuration setting.
+
+            :param job_seed: The type of the job.
+        """
+
+        ctx.insert(ContextPaths.JOB_SEED, job_seed)
+        MOJO_RUNTIME_VARIABLES.MJR_JOB_SEED = job_seed
+
+        return
+
+    @staticmethod
+    def override_job_tag(job_tag: str):
+        """
+            This override function provides a mechanism overriding the MJR_JOB_TAG
+            variable and context configuration setting.
+
+            :param job_tag: The tags for the job.
+        """
+
+        ctx.insert(ContextPaths.JOB_TAG, job_tag)
+        MOJO_RUNTIME_VARIABLES.MJR_JOB_TAG = job_tag
+
+        return
+
+    @staticmethod
+    def override_job_type(job_type: str):
+        """
+            This override function provides a mechanism overriding the MJR_JOB_TYPE
+            variable and context configuration setting.
+
+            :param job_owner: The type of the job.
+        """
+
+        ctx.insert(ContextPaths.JOB_TYPE, job_type)
+        MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE = job_type
+
+        return
 
     @staticmethod
     def override_loglevel_console(level: str):
@@ -261,6 +303,18 @@ class MOJO_RUNTIME_OPTION_OVERRIDES(MOJO_CONFIG_OPTION_OVERRIDES):
         """
         ctx.insert(ContextPaths.RUNID, run_id)
         MOJO_RUNTIME_VARIABLES.MJR_RUN_ID = run_id
+        return
+
+    @staticmethod
+    def override_shared_store_directory(store_dir: str):
+        """
+            This override function provides a mechanism overriding the MJR_SHARED_STORE_DIRECTORY
+            variable and context configuration setting.
+
+            :param store_dir: The shared store directory.
+        """
+        ctx.insert(ContextPaths.SHARED_STORE_DIRECTORY, store_dir)
+        MOJO_RUNTIME_VARIABLES.MJR_SHARED_STORE_DIRECTORY = store_dir
         return
 
     @staticmethod
