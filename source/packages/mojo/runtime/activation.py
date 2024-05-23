@@ -267,36 +267,36 @@ def activate_profile_common():
 
     # Figure out which output directory to set as the current process output directory.  The output directory
     # determines where loggin will go and is different depending on the activation mode of the test framework
-    if MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY is None:
-        filled_dir_results = None
-        if jobtype == JobType.Console:
-            default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "console", "%(starttime)s")
-            outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_CONSOLE, default=default_dir_template)
-            filled_dir_results = outdir_template % fill_dict
-            ctx.insert(ContextPaths.RESULT_PATH_FOR_CONSOLE, filled_dir_results)
+    filled_dir_results = None
+    if jobtype == JobType.Console:
+        default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "console", "%(starttime)s")
+        outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_CONSOLE, default=default_dir_template)
+        filled_dir_results = outdir_template % fill_dict
+        ctx.insert(ContextPaths.RESULT_PATH_FOR_CONSOLE, filled_dir_results)
 
-        elif jobtype == JobType.Orchestration:
-            default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "orchestration", "%(starttime)s")
-            outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_ORCHESTRATION, default=default_dir_template)
-            filled_dir_results = outdir_template % fill_dict
-            ctx.insert(ContextPaths.RESULT_PATH_FOR_ORCHESTRATION, filled_dir_results)
+    elif jobtype == JobType.Orchestration:
+        default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "orchestration", "%(starttime)s")
+        outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_ORCHESTRATION, default=default_dir_template)
+        filled_dir_results = outdir_template % fill_dict
+        ctx.insert(ContextPaths.RESULT_PATH_FOR_ORCHESTRATION, filled_dir_results)
 
-        elif jobtype == JobType.Service:
-            default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "service", "%(starttime)s")
-            outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_SERVICES, default=default_dir_template)
-            filled_dir_results = outdir_template % fill_dict
-            ctx.insert(ContextPaths.RESULT_PATH_FOR_SERVICES, filled_dir_results)
+    elif jobtype == JobType.Service:
+        default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "service", "%(starttime)s")
+        outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_SERVICES, default=default_dir_template)
+        filled_dir_results = outdir_template % fill_dict
+        ctx.insert(ContextPaths.RESULT_PATH_FOR_SERVICES, filled_dir_results)
 
-        else:
+    else:
+        if MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY is None:
             default_dir_template = os.path.join(MOJO_RUNTIME_VARIABLES.MJR_HOME_DIRECTORY, "results", "testresults", "%(starttime)s")
             outdir_template = ctx.lookup(ContextPaths.TEMPLATE_PATH_FOR_TESTS, default=default_dir_template)
             filled_dir_results = outdir_template % fill_dict
             ctx.insert(ContextPaths.RESULT_PATH_FOR_TESTS, filled_dir_results)
+        else:
+            filled_dir_results = MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY % fill_dict
+            ctx.insert(ContextPaths.RESULT_PATH_FOR_TESTS, filled_dir_results)
 
-        MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY = filled_dir_results
-
-    if ctx.lookup(ContextPaths.OUTPUT_DIRECTORY) is None:
-        ctx.insert(ContextPaths.OUTPUT_DIRECTORY, MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY)
+    ctx.insert(ContextPaths.OUTPUT_DIRECTORY, filled_dir_results)
 
     return
 
