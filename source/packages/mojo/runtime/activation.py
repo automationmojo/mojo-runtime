@@ -185,9 +185,6 @@ def activate_profile_testrun():
 
     activate_profile_common()
 
-    ctx = ContextSingleton()
-    ctx.insert(ContextPaths.RESULT_PATH_FOR_TESTS,  MOJO_RUNTIME_VARIABLES.MJR_OUTPUT_DIRECTORY)
-
     from mojo.xmods.xlogging.foundations import logging_initialize
     
     logging_initialize()
