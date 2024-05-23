@@ -227,8 +227,10 @@ def get_path_for_shared_store(create=True) -> str:
         ctx = ContextSingleton()
 
         DIR_SHARED_STORE_DIRECTORY = ctx.lookup(ContextPaths.SHARED_STORE_DIRECTORY)
-        if create and not os.path.exists(DIR_SHARED_STORE_DIRECTORY):
-            os.makedirs(DIR_SHARED_STORE_DIRECTORY)
+        if create:
+            fullpath = get_expanded_path(DIR_SHARED_STORE_DIRECTORY)
+            if not os.path.exists(fullpath):
+                os.makedirs(fullpath)
     
     return DIR_SHARED_STORE_DIRECTORY
 
