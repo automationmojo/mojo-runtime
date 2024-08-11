@@ -12,7 +12,7 @@ __copyright__ = "Copyright 2020, Myron W Walker"
 __credits__ = []
 
 
-from mojo.config.variables import MOJO_CONFIG_VARNAMES
+from mojo.config.configurationvariables import MOJO_CONFIG_VARNAMES
 
 class MOJO_RUNTIME_VARNAMES(MOJO_CONFIG_VARNAMES):
     MJR_ACTIVATION_PROFILE = "MJR_ACTIVATION_PROFILE"
