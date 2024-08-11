@@ -13,6 +13,7 @@ __credits__ = []
 
 from typing import Optional
 
+from mojo.startup.presencesettings import MOJO_PRESENCE_DEFAULTS
 from mojo.startup.wellknown import StartupConfigSingleton
 
 from mojo.config.configurationsettings import (
@@ -34,19 +35,22 @@ class MOJO_RUNTIME_DEFAULTS(MOJO_CONFIG_DEFAULTS):
 
 RUNTIME_SETTINGS_ESTABLISHED = False
 
-def establish_runtime_settings(name: Optional[str]=None, home_dir: Optional[str]=None,
-                               logger_name: Optional[str]=None, default_configuration: dict=None,
-                            service_name: Optional[str]=None):
+def establish_runtime_settings(*, name: Optional[str]=None, home_dir: Optional[str]=None, settings_file: Optional[str]=None,
+                               extension_modules: Optional[str]=None, logger_name: Optional[str]=None, default_configuration: dict=None,
+                               service_name: Optional[str]=None, **other):
     
     global RUNTIME_SETTINGS_ESTABLISHED
 
     if not RUNTIME_SETTINGS_ESTABLISHED:
         RUNTIME_SETTINGS_ESTABLISHED = True
 
-        establish_config_settings(name=name, home_dir=home_dir, default_configuration=default_configuration)
-        
+        establish_config_settings(name=name, home_dir=home_dir, settings_file=settings_file, extension_modules=extension_modules,
+                                  default_configuration=default_configuration, **other)
+
         if logger_name is not None:
             MOJO_RUNTIME_DEFAULTS.MJR_LOGGER_NAME = logger_name
+        else:
+            MOJO_RUNTIME_DEFAULTS.MJR_LOGGER_NAME = MOJO_PRESENCE_DEFAULTS.MJR_NAME.upper()
 
         if service_name is not None:
             MOJO_RUNTIME_DEFAULTS.MJR_SERVICE_NAME = service_name

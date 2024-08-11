@@ -35,7 +35,7 @@ from mojo.errors.xtraceback import (
 from mojo.runtime.enumerations import ActivationProfile, JobType
 from mojo.runtime.variablenames import MOJO_RUNTIME_VARNAMES
 
-from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
+from mojo.runtime.runtimevariables import MOJO_RUNTIME_VARIABLES
 
 from mojo.xmods.xlogging.levels import LogLevel
 
@@ -209,7 +209,7 @@ def activate_profile_common():
     # Activation Step - 3: Process the environment variable overrides for any of the AKIT configuration
     # variables. This needs to happen before we load or create an initial user configuration
     # because the variables may effect the values we write into the user configuration file.
-    from mojo.runtime.variables import (
+    from mojo.runtime.runtimevariables import (
         MOJO_RUNTIME_VARIABLES,
         DefaultValue,
         JobType

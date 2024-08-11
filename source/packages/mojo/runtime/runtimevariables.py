@@ -22,7 +22,7 @@ from uuid import uuid4
 from mojo.collections.contextpaths import ContextPaths
 from mojo.collections.wellknown import ContextSingleton
 
-from mojo.config.variables import MOJO_CONFIG_VARIABLES, resolve_configuration_variables
+from mojo.configuration.variables import MOJO_CONFIG_VARIABLES, resolve_configuration_variables
 
 from mojo.xmods.xconvert import parse_bool
 from mojo.xmods.xdatetime import (
@@ -34,7 +34,6 @@ from mojo.runtime.enumerations import JobType
 
 from mojo.runtime.runtimesettings import MOJO_RUNTIME_DEFAULTS
 from mojo.runtime.variablenames import MOJO_RUNTIME_VARNAMES
-
 
 
 def normalize_variable_whitespace(lval):

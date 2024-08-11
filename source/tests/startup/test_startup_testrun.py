@@ -16,7 +16,7 @@ class TestStartupTestRun(unittest.TestCase):
         from mojo.runtime.activation import activate_runtime, ActivationProfile
         activate_runtime(profile=ActivationProfile.TestRun)
 
-        from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
+        from mojo.runtime.runtimevariables import MOJO_RUNTIME_VARIABLES
         from mojo.runtime.paths import get_path_for_output
 
         output_directory = get_path_for_output()

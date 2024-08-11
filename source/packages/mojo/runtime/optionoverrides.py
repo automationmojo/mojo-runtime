@@ -21,7 +21,7 @@ from mojo.collections.wellknown import ContextSingleton
 
 from mojo.config.optionoverrides import MOJO_CONFIG_OPTION_OVERRIDES
 
-from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
+from mojo.runtime.runtimevariables import MOJO_RUNTIME_VARIABLES
 
 ctx = ContextSingleton()
 
