@@ -22,7 +22,7 @@ from uuid import uuid4
 from mojo.collections.contextpaths import ContextPaths
 from mojo.collections.wellknown import ContextSingleton
 
-from mojo.configuration.variables import MOJO_CONFIG_VARIABLES, resolve_configuration_variables
+from mojo.configuration.configurationvariables import MOJO_CONFIG_VARIABLES, resolve_configuration_variables
 
 from mojo.xmods.xconvert import parse_bool
 from mojo.xmods.xdatetime import (
